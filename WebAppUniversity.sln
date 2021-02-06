@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1321
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppUniversity", "WebAppUniversity\WebAppUniversity.csproj", "{995E7252-248C-414B-9630-9F3F3A9F2D77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppUniversity.Models", "WebAppUniversity.Models\WebAppUniversity.Models.csproj", "{C259845A-6C22-41E7-A610-0F9C60A67303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppUniversity.Models", "WebAppUniversity.Models\WebAppUniversity.Models.csproj", "{C259845A-6C22-41E7-A610-0F9C60A67303}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppUniversity.DbRepository", "WebAppUniversity.DbRepository\WebAppUniversity.DbRepository.csproj", "{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppUniversity.DbRepository", "WebAppUniversity.DbRepository\WebAppUniversity.DbRepository.csproj", "{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityWebApp", "UniversityWebApp\UniversityWebApp.csproj", "{211213F4-3460-445C-A161-37B75D877B2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{995E7252-248C-414B-9630-9F3F3A9F2D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{995E7252-248C-414B-9630-9F3F3A9F2D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{995E7252-248C-414B-9630-9F3F3A9F2D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{995E7252-248C-414B-9630-9F3F3A9F2D77}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C259845A-6C22-41E7-A610-0F9C60A67303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C259845A-6C22-41E7-A610-0F9C60A67303}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C259845A-6C22-41E7-A610-0F9C60A67303}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{211213F4-3460-445C-A161-37B75D877B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{211213F4-3460-445C-A161-37B75D877B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{211213F4-3460-445C-A161-37B75D877B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{211213F4-3460-445C-A161-37B75D877B2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

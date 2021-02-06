@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebAppUniversity.DbRepository;
 using WebAppUniversity.Models;
 
-namespace WebAppUniversity
+namespace UniversityWebApp
 {
     public class Startup
     {
@@ -25,16 +25,18 @@ namespace WebAppUniversity
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<UniversityDbContext>(opts =>
-            opts.UseSqlServer(Configuration["Data:University:ConnectionString"]));
+            opts.UseSqlServer(Configuration["Data:University:ConnectionString"],  sqlOptions =>
+            {
+                sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
+            }));
             services.AddScoped<IAdminRepository<BaseModel>, AdminRepository>();
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
-            services.AddSession(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,14 +45,20 @@ namespace WebAppUniversity
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(); 
             }
 
+            app.UseDefaultFiles();
             app.UseStatusCodePages();
-            app.UseStaticFiles();
-            app.UseSession();
-            app.Run(async (context) =>
+            app.UseStaticFiles();  
+            //app.UseSession();
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "api/{controller}/{action}");
+                //включаем поддержку клиентского роутинга
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
         }
     }
