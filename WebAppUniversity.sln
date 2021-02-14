@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppUniversity.Models", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppUniversity.DbRepository", "WebAppUniversity.DbRepository\WebAppUniversity.DbRepository.csproj", "{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityWebApp", "UniversityWebApp\UniversityWebApp.csproj", "{211213F4-3460-445C-A161-37B75D877B2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppUniversity", "WebAppUniversity\WebAppUniversity.csproj", "{381E1F89-C0AC-4FB2-A1BB-2B4E62C08CE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ABF3150-D61E-4293-8FC1-7CBF03BF8E5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{211213F4-3460-445C-A161-37B75D877B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{211213F4-3460-445C-A161-37B75D877B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{211213F4-3460-445C-A161-37B75D877B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{211213F4-3460-445C-A161-37B75D877B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381E1F89-C0AC-4FB2-A1BB-2B4E62C08CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381E1F89-C0AC-4FB2-A1BB-2B4E62C08CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381E1F89-C0AC-4FB2-A1BB-2B4E62C08CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381E1F89-C0AC-4FB2-A1BB-2B4E62C08CE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

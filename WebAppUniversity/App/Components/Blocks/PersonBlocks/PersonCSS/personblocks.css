@@ -1,0 +1,16 @@
+﻿
+.rowPersonMain{
+    margin-top:20px;
+}
+
+    .rowPersonMain .col-2 a {
+        font-size: 20px;
+        color: darkcyan;
+        font-weight: bold;
+    }
+
+.table-dark #tableCommon {
+    height: 450px;
+}
+
+

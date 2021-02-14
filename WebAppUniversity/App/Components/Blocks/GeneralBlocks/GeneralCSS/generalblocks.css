@@ -1,0 +1,46 @@
+﻿
+.cardEngeneer {
+    width: 450px;
+}
+
+    .cardEngeneer #cardEngeneerTitle {
+        color: white;
+        margin-top: 30%;
+    }
+
+    .cardEngeneer #cardEngeneerText {
+        color: white;
+    }
+
+.cardNatural {
+    margin-left: 20px;
+    width: 450px;
+}
+
+    .cardNatural #cardNaturalImg {
+        margin-right: 30px;
+    }
+
+    .cardNatural #cardNaturalTitle {
+        color: white;
+        margin-top: 30%;
+    }
+
+    .cardNatural #cardNaturalText {
+        color: white;
+    }
+
+.rowDescription {
+    margin-top: 20px;
+}
+
+    .rowDescription p {
+        font-size: 15px;
+        font-weight: bold;
+        width: 450px;
+        text-justify: distribute;
+    }
+
+    .rowDescription #p2 {
+        margin-left: 20px;
+    }
