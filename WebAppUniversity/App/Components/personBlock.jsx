@@ -5,9 +5,8 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import PersonCommon from './Blocks/PersonBlocks/personCommon.jsx';
+import PersonMain from './Blocks/PersonBlocks/personMain.jsx';
 import PersonAdmin from './Blocks/PersonBlocks/personAdmin.jsx';
-import './Blocks/PersonBlocks/PersonCSS/personblocks.css';
 
 
 export default class PersonBlock extends React.Component {
@@ -33,7 +32,7 @@ export default class PersonBlock extends React.Component {
                                 <PersonAdmin />
                             </Route>
                             <Route path='/'>
-                                <PersonCommon />
+                                <PersonMain />
                             </Route>
                         </Switch>
                     </div>

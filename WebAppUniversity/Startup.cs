@@ -38,6 +38,7 @@ namespace WebAppUniversity
             services.AddTransient<IPersonRepository, PersonRepository>();
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +49,13 @@ namespace WebAppUniversity
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware();
             }
-            
+            else
+            {
+                app.UseExceptionHandler("/error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStatusCodePages();
             app.UseStaticFiles(); 

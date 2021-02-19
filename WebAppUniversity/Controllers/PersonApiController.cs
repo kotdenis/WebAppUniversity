@@ -13,6 +13,7 @@ using WebAppUniversity.ViewModels;
 namespace WebAppUniversity.Controllers
 {
     [Route("api/[controller]")]
+    //[Route("api/[controller]/[action]")]
     [ApiController]
     public class PersonApiController : ControllerBase
     {
@@ -23,9 +24,31 @@ namespace WebAppUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<EnrolleeAndDepartment>> GetEnrolleeAndDepartment()
+        public async Task<IEnumerable<IBaseViewModel>[]> GetInitialDataAsync()
         {
-            return await _personRepository.GetFirstEnrolleeDepartmentAsync();
+            return await Task.WhenAll(GetEnrolleeAndDepartmentAsync(), GetUgeResultsAsync(), GetStatementsAsync());
+        }
+
+
+        [HttpPost]
+        public async Task<IEnumerable<EnrolleeAndDepartment>> GetConcreteEnrolleeAndDepartmentAsync([FromBody]EnrolleeAndDepartment name)
+        {
+            return await _personRepository.GetConcreteEnrolleeDepartmentAsync(name.ProgramName, name.DepartmentName);
+        }
+
+        private async Task<IEnumerable<IBaseViewModel>> GetEnrolleeAndDepartmentAsync()
+        {
+            return await _personRepository.GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
+        }
+
+        private async Task<IEnumerable<IBaseViewModel>> GetUgeResultsAsync()
+        {
+            return await _personRepository.GetUgeResultsAsync().ConfigureAwait(false);
+        }
+
+        private async Task<IEnumerable<IBaseViewModel>> GetStatementsAsync()
+        {
+            return await _personRepository.GetStatementsAsync().ConfigureAwait(false);
         }
     }
 }

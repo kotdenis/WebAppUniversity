@@ -1,10 +1,11 @@
 ﻿import React from 'react';
+import AdminFirstBlock from './AdminBlocks/adminFirstBlock.jsx';
 
 export default class PersonAdmin extends React.Component {
     render() {
         return (
-            <div>
-                <h1>Hello Den!</h1>
+            <div className="container-fluid">
+                <AdminFirstBlock />
             </div>
         );
     }

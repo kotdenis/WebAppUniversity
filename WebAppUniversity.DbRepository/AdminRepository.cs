@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace WebAppUniversity.DbRepository
 
         public async Task CreateAsync<TEntity>(TEntity item) where TEntity : BaseModel 
         {
-            context.Set<TEntity>().Add(item);
+            await context.Set<TEntity>().AddAsync(item);
             await context.SaveChangesAsync();
         }
 
@@ -32,12 +33,20 @@ namespace WebAppUniversity.DbRepository
 
         public async Task<TEntity> GetItemAsync<TEntity>(int id) where TEntity : BaseModel
         {
-            return await context.Set<TEntity>().FindAsync(id);
+            try
+            {
+                return await context.Set<TEntity>().FindAsync(id).ConfigureAwait(false);
+            }
+            catch(Exception) { return null; }
         }
 
-        public async Task<IQueryable<TEntity>> GetItemsAsync<TEntity>(object options = null) where TEntity : BaseModel
+        public async Task<IEnumerable<TEntity>> GetItemsAsync<TEntity>() where TEntity : BaseModel
         {
-            return await Task.Run<IQueryable<TEntity>>(() => context.Set<TEntity>());
+            try
+            {
+                return await context.Set<TEntity>().ToListAsync().ConfigureAwait(false);
+            }
+            catch(Exception) { return new List<TEntity>(); }
         }
 
         public Task Update<TEntity>(TEntity item) where TEntity : BaseModel

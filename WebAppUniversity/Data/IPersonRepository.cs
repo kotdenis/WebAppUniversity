@@ -8,6 +8,9 @@ namespace WebAppUniversity.Data
 {
     public interface IPersonRepository
     {
-        Task<IQueryable<EnrolleeAndDepartment>> GetFirstEnrolleeDepartmentAsync();
+        Task<IEnumerable<EnrolleeAndDepartment>> GetFullEnrolleeDepartmentAsync();
+        Task<IEnumerable<EnrolleeAndDepartment>> GetConcreteEnrolleeDepartmentAsync(string programName, string departmentName);
+        Task<IEnumerable<UgeResults>> GetUgeResultsAsync();
+        Task<IEnumerable<Statement>> GetStatementsAsync();
     }
 }
