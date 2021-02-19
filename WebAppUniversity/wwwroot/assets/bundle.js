@@ -369,6 +369,265 @@ module.exports = warning;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(0));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2));
+
+var _paginator = _interopRequireDefault(__webpack_require__(76));
+
+var _Page = _interopRequireDefault(__webpack_require__(77));
+
+var _classnames = _interopRequireDefault(__webpack_require__(24));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Pagination =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Pagination, _React$Component);
+
+  function Pagination() {
+    _classCallCheck(this, Pagination);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Pagination).apply(this, arguments));
+  }
+
+  _createClass(Pagination, [{
+    key: "isFirstPageVisible",
+    value: function isFirstPageVisible(has_previous_page) {
+      var _this$props = this.props,
+          hideDisabled = _this$props.hideDisabled,
+          hideNavigation = _this$props.hideNavigation,
+          hideFirstLastPages = _this$props.hideFirstLastPages;
+      if (hideFirstLastPages || hideDisabled && !has_previous_page) return false;
+      return true;
+    }
+  }, {
+    key: "isPrevPageVisible",
+    value: function isPrevPageVisible(has_previous_page) {
+      var _this$props2 = this.props,
+          hideDisabled = _this$props2.hideDisabled,
+          hideNavigation = _this$props2.hideNavigation;
+      if (hideNavigation || hideDisabled && !has_previous_page) return false;
+      return true;
+    }
+  }, {
+    key: "isNextPageVisible",
+    value: function isNextPageVisible(has_next_page) {
+      var _this$props3 = this.props,
+          hideDisabled = _this$props3.hideDisabled,
+          hideNavigation = _this$props3.hideNavigation;
+      if (hideNavigation || hideDisabled && !has_next_page) return false;
+      return true;
+    }
+  }, {
+    key: "isLastPageVisible",
+    value: function isLastPageVisible(has_next_page) {
+      var _this$props4 = this.props,
+          hideDisabled = _this$props4.hideDisabled,
+          hideNavigation = _this$props4.hideNavigation,
+          hideFirstLastPages = _this$props4.hideFirstLastPages;
+      if (hideFirstLastPages || hideDisabled && !has_next_page) return false;
+      return true;
+    }
+  }, {
+    key: "buildPages",
+    value: function buildPages() {
+      var pages = [];
+      var _this$props5 = this.props,
+          itemsCountPerPage = _this$props5.itemsCountPerPage,
+          pageRangeDisplayed = _this$props5.pageRangeDisplayed,
+          activePage = _this$props5.activePage,
+          prevPageText = _this$props5.prevPageText,
+          nextPageText = _this$props5.nextPageText,
+          firstPageText = _this$props5.firstPageText,
+          lastPageText = _this$props5.lastPageText,
+          totalItemsCount = _this$props5.totalItemsCount,
+          onChange = _this$props5.onChange,
+          activeClass = _this$props5.activeClass,
+          itemClass = _this$props5.itemClass,
+          itemClassFirst = _this$props5.itemClassFirst,
+          itemClassPrev = _this$props5.itemClassPrev,
+          itemClassNext = _this$props5.itemClassNext,
+          itemClassLast = _this$props5.itemClassLast,
+          activeLinkClass = _this$props5.activeLinkClass,
+          disabledClass = _this$props5.disabledClass,
+          hideDisabled = _this$props5.hideDisabled,
+          hideNavigation = _this$props5.hideNavigation,
+          linkClass = _this$props5.linkClass,
+          linkClassFirst = _this$props5.linkClassFirst,
+          linkClassPrev = _this$props5.linkClassPrev,
+          linkClassNext = _this$props5.linkClassNext,
+          linkClassLast = _this$props5.linkClassLast,
+          hideFirstLastPages = _this$props5.hideFirstLastPages,
+          getPageUrl = _this$props5.getPageUrl;
+      var paginationInfo = new _paginator["default"](itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
+
+      for (var i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
+        pages.push(_react["default"].createElement(_Page["default"], {
+          isActive: i === activePage,
+          key: i,
+          href: getPageUrl(i),
+          pageNumber: i,
+          pageText: i + "",
+          onClick: onChange,
+          itemClass: itemClass,
+          linkClass: linkClass,
+          activeClass: activeClass,
+          activeLinkClass: activeLinkClass,
+          ariaLabel: "Go to page number ".concat(i)
+        }));
+      }
+
+      this.isPrevPageVisible(paginationInfo.has_previous_page) && pages.unshift(_react["default"].createElement(_Page["default"], {
+        key: "prev" + paginationInfo.previous_page,
+        href: getPageUrl(paginationInfo.previous_page),
+        pageNumber: paginationInfo.previous_page,
+        onClick: onChange,
+        pageText: prevPageText,
+        isDisabled: !paginationInfo.has_previous_page,
+        itemClass: (0, _classnames["default"])(itemClass, itemClassPrev),
+        linkClass: (0, _classnames["default"])(linkClass, linkClassPrev),
+        disabledClass: disabledClass,
+        ariaLabel: "Go to previous page"
+      }));
+      this.isFirstPageVisible(paginationInfo.has_previous_page) && pages.unshift(_react["default"].createElement(_Page["default"], {
+        key: "first",
+        href: getPageUrl(1),
+        pageNumber: 1,
+        onClick: onChange,
+        pageText: firstPageText,
+        isDisabled: !paginationInfo.has_previous_page,
+        itemClass: (0, _classnames["default"])(itemClass, itemClassFirst),
+        linkClass: (0, _classnames["default"])(linkClass, linkClassFirst),
+        disabledClass: disabledClass,
+        ariaLabel: "Go to first page"
+      }));
+      this.isNextPageVisible(paginationInfo.has_next_page) && pages.push(_react["default"].createElement(_Page["default"], {
+        key: "next" + paginationInfo.next_page,
+        href: getPageUrl(paginationInfo.next_page),
+        pageNumber: paginationInfo.next_page,
+        onClick: onChange,
+        pageText: nextPageText,
+        isDisabled: !paginationInfo.has_next_page,
+        itemClass: (0, _classnames["default"])(itemClass, itemClassNext),
+        linkClass: (0, _classnames["default"])(linkClass, linkClassNext),
+        disabledClass: disabledClass,
+        ariaLabel: "Go to next page"
+      }));
+      this.isLastPageVisible(paginationInfo.has_next_page) && pages.push(_react["default"].createElement(_Page["default"], {
+        key: "last",
+        href: getPageUrl(paginationInfo.total_pages),
+        pageNumber: paginationInfo.total_pages,
+        onClick: onChange,
+        pageText: lastPageText,
+        isDisabled: paginationInfo.current_page === paginationInfo.total_pages,
+        itemClass: (0, _classnames["default"])(itemClass, itemClassLast),
+        linkClass: (0, _classnames["default"])(linkClass, linkClassLast),
+        disabledClass: disabledClass,
+        ariaLabel: "Go to last page"
+      }));
+      return pages;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var pages = this.buildPages();
+      return _react["default"].createElement("ul", {
+        className: this.props.innerClass
+      }, pages);
+    }
+  }]);
+
+  return Pagination;
+}(_react["default"].Component);
+
+exports["default"] = Pagination;
+
+_defineProperty(Pagination, "propTypes", {
+  totalItemsCount: _propTypes["default"].number.isRequired,
+  onChange: _propTypes["default"].func.isRequired,
+  activePage: _propTypes["default"].number,
+  itemsCountPerPage: _propTypes["default"].number,
+  pageRangeDisplayed: _propTypes["default"].number,
+  prevPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
+  nextPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
+  lastPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
+  firstPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
+  disabledClass: _propTypes["default"].string,
+  hideDisabled: _propTypes["default"].bool,
+  hideNavigation: _propTypes["default"].bool,
+  innerClass: _propTypes["default"].string,
+  itemClass: _propTypes["default"].string,
+  itemClassFirst: _propTypes["default"].string,
+  itemClassPrev: _propTypes["default"].string,
+  itemClassNext: _propTypes["default"].string,
+  itemClassLast: _propTypes["default"].string,
+  linkClass: _propTypes["default"].string,
+  activeClass: _propTypes["default"].string,
+  activeLinkClass: _propTypes["default"].string,
+  linkClassFirst: _propTypes["default"].string,
+  linkClassPrev: _propTypes["default"].string,
+  linkClassNext: _propTypes["default"].string,
+  linkClassLast: _propTypes["default"].string,
+  hideFirstLastPages: _propTypes["default"].bool,
+  getPageUrl: _propTypes["default"].func
+});
+
+_defineProperty(Pagination, "defaultProps", {
+  itemsCountPerPage: 10,
+  pageRangeDisplayed: 5,
+  activePage: 1,
+  prevPageText: "⟨",
+  firstPageText: "«",
+  nextPageText: "⟩",
+  lastPageText: "»",
+  innerClass: "pagination",
+  itemClass: undefined,
+  linkClass: undefined,
+  activeLinkClass: undefined,
+  hideFirstLastPages: false,
+  getPageUrl: function getPageUrl(i) {
+    return "#";
+  }
+});
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -422,7 +681,7 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1361,7 +1620,7 @@ function createMemoryHistory(props) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1456,265 +1715,6 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _react = _interopRequireWildcard(__webpack_require__(0));
-
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
-
-var _paginator = _interopRequireDefault(__webpack_require__(76));
-
-var _Page = _interopRequireDefault(__webpack_require__(77));
-
-var _classnames = _interopRequireDefault(__webpack_require__(24));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var Pagination =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Pagination, _React$Component);
-
-  function Pagination() {
-    _classCallCheck(this, Pagination);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Pagination).apply(this, arguments));
-  }
-
-  _createClass(Pagination, [{
-    key: "isFirstPageVisible",
-    value: function isFirstPageVisible(has_previous_page) {
-      var _this$props = this.props,
-          hideDisabled = _this$props.hideDisabled,
-          hideNavigation = _this$props.hideNavigation,
-          hideFirstLastPages = _this$props.hideFirstLastPages;
-      if (hideFirstLastPages || hideDisabled && !has_previous_page) return false;
-      return true;
-    }
-  }, {
-    key: "isPrevPageVisible",
-    value: function isPrevPageVisible(has_previous_page) {
-      var _this$props2 = this.props,
-          hideDisabled = _this$props2.hideDisabled,
-          hideNavigation = _this$props2.hideNavigation;
-      if (hideNavigation || hideDisabled && !has_previous_page) return false;
-      return true;
-    }
-  }, {
-    key: "isNextPageVisible",
-    value: function isNextPageVisible(has_next_page) {
-      var _this$props3 = this.props,
-          hideDisabled = _this$props3.hideDisabled,
-          hideNavigation = _this$props3.hideNavigation;
-      if (hideNavigation || hideDisabled && !has_next_page) return false;
-      return true;
-    }
-  }, {
-    key: "isLastPageVisible",
-    value: function isLastPageVisible(has_next_page) {
-      var _this$props4 = this.props,
-          hideDisabled = _this$props4.hideDisabled,
-          hideNavigation = _this$props4.hideNavigation,
-          hideFirstLastPages = _this$props4.hideFirstLastPages;
-      if (hideFirstLastPages || hideDisabled && !has_next_page) return false;
-      return true;
-    }
-  }, {
-    key: "buildPages",
-    value: function buildPages() {
-      var pages = [];
-      var _this$props5 = this.props,
-          itemsCountPerPage = _this$props5.itemsCountPerPage,
-          pageRangeDisplayed = _this$props5.pageRangeDisplayed,
-          activePage = _this$props5.activePage,
-          prevPageText = _this$props5.prevPageText,
-          nextPageText = _this$props5.nextPageText,
-          firstPageText = _this$props5.firstPageText,
-          lastPageText = _this$props5.lastPageText,
-          totalItemsCount = _this$props5.totalItemsCount,
-          onChange = _this$props5.onChange,
-          activeClass = _this$props5.activeClass,
-          itemClass = _this$props5.itemClass,
-          itemClassFirst = _this$props5.itemClassFirst,
-          itemClassPrev = _this$props5.itemClassPrev,
-          itemClassNext = _this$props5.itemClassNext,
-          itemClassLast = _this$props5.itemClassLast,
-          activeLinkClass = _this$props5.activeLinkClass,
-          disabledClass = _this$props5.disabledClass,
-          hideDisabled = _this$props5.hideDisabled,
-          hideNavigation = _this$props5.hideNavigation,
-          linkClass = _this$props5.linkClass,
-          linkClassFirst = _this$props5.linkClassFirst,
-          linkClassPrev = _this$props5.linkClassPrev,
-          linkClassNext = _this$props5.linkClassNext,
-          linkClassLast = _this$props5.linkClassLast,
-          hideFirstLastPages = _this$props5.hideFirstLastPages,
-          getPageUrl = _this$props5.getPageUrl;
-      var paginationInfo = new _paginator["default"](itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
-
-      for (var i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
-        pages.push(_react["default"].createElement(_Page["default"], {
-          isActive: i === activePage,
-          key: i,
-          href: getPageUrl(i),
-          pageNumber: i,
-          pageText: i + "",
-          onClick: onChange,
-          itemClass: itemClass,
-          linkClass: linkClass,
-          activeClass: activeClass,
-          activeLinkClass: activeLinkClass,
-          ariaLabel: "Go to page number ".concat(i)
-        }));
-      }
-
-      this.isPrevPageVisible(paginationInfo.has_previous_page) && pages.unshift(_react["default"].createElement(_Page["default"], {
-        key: "prev" + paginationInfo.previous_page,
-        href: getPageUrl(paginationInfo.previous_page),
-        pageNumber: paginationInfo.previous_page,
-        onClick: onChange,
-        pageText: prevPageText,
-        isDisabled: !paginationInfo.has_previous_page,
-        itemClass: (0, _classnames["default"])(itemClass, itemClassPrev),
-        linkClass: (0, _classnames["default"])(linkClass, linkClassPrev),
-        disabledClass: disabledClass,
-        ariaLabel: "Go to previous page"
-      }));
-      this.isFirstPageVisible(paginationInfo.has_previous_page) && pages.unshift(_react["default"].createElement(_Page["default"], {
-        key: "first",
-        href: getPageUrl(1),
-        pageNumber: 1,
-        onClick: onChange,
-        pageText: firstPageText,
-        isDisabled: !paginationInfo.has_previous_page,
-        itemClass: (0, _classnames["default"])(itemClass, itemClassFirst),
-        linkClass: (0, _classnames["default"])(linkClass, linkClassFirst),
-        disabledClass: disabledClass,
-        ariaLabel: "Go to first page"
-      }));
-      this.isNextPageVisible(paginationInfo.has_next_page) && pages.push(_react["default"].createElement(_Page["default"], {
-        key: "next" + paginationInfo.next_page,
-        href: getPageUrl(paginationInfo.next_page),
-        pageNumber: paginationInfo.next_page,
-        onClick: onChange,
-        pageText: nextPageText,
-        isDisabled: !paginationInfo.has_next_page,
-        itemClass: (0, _classnames["default"])(itemClass, itemClassNext),
-        linkClass: (0, _classnames["default"])(linkClass, linkClassNext),
-        disabledClass: disabledClass,
-        ariaLabel: "Go to next page"
-      }));
-      this.isLastPageVisible(paginationInfo.has_next_page) && pages.push(_react["default"].createElement(_Page["default"], {
-        key: "last",
-        href: getPageUrl(paginationInfo.total_pages),
-        pageNumber: paginationInfo.total_pages,
-        onClick: onChange,
-        pageText: lastPageText,
-        isDisabled: paginationInfo.current_page === paginationInfo.total_pages,
-        itemClass: (0, _classnames["default"])(itemClass, itemClassLast),
-        linkClass: (0, _classnames["default"])(linkClass, linkClassLast),
-        disabledClass: disabledClass,
-        ariaLabel: "Go to last page"
-      }));
-      return pages;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var pages = this.buildPages();
-      return _react["default"].createElement("ul", {
-        className: this.props.innerClass
-      }, pages);
-    }
-  }]);
-
-  return Pagination;
-}(_react["default"].Component);
-
-exports["default"] = Pagination;
-
-_defineProperty(Pagination, "propTypes", {
-  totalItemsCount: _propTypes["default"].number.isRequired,
-  onChange: _propTypes["default"].func.isRequired,
-  activePage: _propTypes["default"].number,
-  itemsCountPerPage: _propTypes["default"].number,
-  pageRangeDisplayed: _propTypes["default"].number,
-  prevPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
-  nextPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
-  lastPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
-  firstPageText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
-  disabledClass: _propTypes["default"].string,
-  hideDisabled: _propTypes["default"].bool,
-  hideNavigation: _propTypes["default"].bool,
-  innerClass: _propTypes["default"].string,
-  itemClass: _propTypes["default"].string,
-  itemClassFirst: _propTypes["default"].string,
-  itemClassPrev: _propTypes["default"].string,
-  itemClassNext: _propTypes["default"].string,
-  itemClassLast: _propTypes["default"].string,
-  linkClass: _propTypes["default"].string,
-  activeClass: _propTypes["default"].string,
-  activeLinkClass: _propTypes["default"].string,
-  linkClassFirst: _propTypes["default"].string,
-  linkClassPrev: _propTypes["default"].string,
-  linkClassNext: _propTypes["default"].string,
-  linkClassLast: _propTypes["default"].string,
-  hideFirstLastPages: _propTypes["default"].bool,
-  getPageUrl: _propTypes["default"].func
-});
-
-_defineProperty(Pagination, "defaultProps", {
-  itemsCountPerPage: 10,
-  pageRangeDisplayed: 5,
-  activePage: 1,
-  prevPageText: "⟨",
-  firstPageText: "«",
-  nextPageText: "⟩",
-  lastPageText: "»",
-  innerClass: "pagination",
-  itemClass: undefined,
-  linkClass: undefined,
-  activeLinkClass: undefined,
-  hideFirstLastPages: false,
-  getPageUrl: function getPageUrl(i) {
-    return "#";
-  }
-});
 
 /***/ }),
 /* 8 */
@@ -1925,7 +1925,7 @@ module.exports = ReactPropTypesSecret;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -2656,9 +2656,9 @@ if (process.env.NODE_ENV === 'production') {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(6);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -2782,7 +2782,7 @@ Link.contextTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -3509,7 +3509,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MOD
  * LICENSE file in the root directory of this source tree.
  */
 
-var l=__webpack_require__(6),n="function"===typeof Symbol&&Symbol.for,p=n?Symbol.for("react.element"):60103,q=n?Symbol.for("react.portal"):60106,r=n?Symbol.for("react.fragment"):60107,t=n?Symbol.for("react.strict_mode"):60108,u=n?Symbol.for("react.profiler"):60114,v=n?Symbol.for("react.provider"):60109,w=n?Symbol.for("react.context"):60110,x=n?Symbol.for("react.forward_ref"):60112,y=n?Symbol.for("react.suspense"):60113,z=n?Symbol.for("react.memo"):60115,A=n?Symbol.for("react.lazy"):
+var l=__webpack_require__(7),n="function"===typeof Symbol&&Symbol.for,p=n?Symbol.for("react.element"):60103,q=n?Symbol.for("react.portal"):60106,r=n?Symbol.for("react.fragment"):60107,t=n?Symbol.for("react.strict_mode"):60108,u=n?Symbol.for("react.profiler"):60114,v=n?Symbol.for("react.provider"):60109,w=n?Symbol.for("react.context"):60110,x=n?Symbol.for("react.forward_ref"):60112,y=n?Symbol.for("react.suspense"):60113,z=n?Symbol.for("react.memo"):60115,A=n?Symbol.for("react.lazy"):
 60116,B="function"===typeof Symbol&&Symbol.iterator;function C(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}
 var D={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},E={};function F(a,b,c){this.props=a;this.context=b;this.refs=E;this.updater=c||D}F.prototype.isReactComponent={};F.prototype.setState=function(a,b){if("object"!==typeof a&&"function"!==typeof a&&null!=a)throw Error(C(85));this.updater.enqueueSetState(this,a,b,"setState")};F.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function G(){}G.prototype=F.prototype;function H(a,b,c){this.props=a;this.context=b;this.refs=E;this.updater=c||D}var I=H.prototype=new G;I.constructor=H;l(I,F.prototype);I.isPureReactComponent=!0;var J={current:null},K=Object.prototype.hasOwnProperty,L={key:!0,ref:!0,__self:!0,__source:!0};
@@ -3549,7 +3549,7 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(6);
+var _assign = __webpack_require__(7);
 var checkPropTypes = __webpack_require__(9);
 
 var ReactVersion = '16.14.0';
@@ -5464,7 +5464,7 @@ exports.version = ReactVersion;
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),n=__webpack_require__(6),r=__webpack_require__(17);function u(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(u(227));
+var aa=__webpack_require__(0),n=__webpack_require__(7),r=__webpack_require__(17);function u(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(u(227));
 function ba(a,b,c,d,e,f,g,h,k){var l=Array.prototype.slice.call(arguments,3);try{b.apply(c,l)}catch(m){this.onError(m)}}var da=!1,ea=null,fa=!1,ha=null,ia={onError:function(a){da=!0;ea=a}};function ja(a,b,c,d,e,f,g,h,k){da=!1;ea=null;ba.apply(ia,arguments)}function ka(a,b,c,d,e,f,g,h,k){ja.apply(this,arguments);if(da){if(da){var l=ea;da=!1;ea=null}else throw Error(u(198));fa||(fa=!0,ha=l)}}var la=null,ma=null,na=null;
 function oa(a,b,c){var d=a.type||"unknown-event";a.currentTarget=na(c);ka(d,b,void 0,a);a.currentTarget=null}var pa=null,qa={};
 function ra(){if(pa)for(var a in qa){var b=qa[a],c=pa.indexOf(a);if(!(-1<c))throw Error(u(96,a));if(!sa[c]){if(!b.extractEvents)throw Error(u(97,a));sa[c]=b;c=b.eventTypes;for(var d in c){var e=void 0;var f=c[d],g=b,h=d;if(ta.hasOwnProperty(h))throw Error(u(99,h));ta[h]=f;var k=f.phasedRegistrationNames;if(k){for(e in k)k.hasOwnProperty(e)&&ua(k[e],g,h);e=!0}else f.registrationName?(ua(f.registrationName,g,h),e=!0):e=!1;if(!e)throw Error(u(98,d,a));}}}}
@@ -6663,7 +6663,7 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(0);
-var _assign = __webpack_require__(6);
+var _assign = __webpack_require__(7);
 var Scheduler = __webpack_require__(17);
 var checkPropTypes = __webpack_require__(9);
 var tracing = __webpack_require__(33);
@@ -32060,7 +32060,7 @@ exports.unstable_wrap = unstable_wrap;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(11);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -32341,7 +32341,7 @@ exports.typeOf = typeOf;
 
 
 var ReactIs = __webpack_require__(18);
-var assign = __webpack_require__(6);
+var assign = __webpack_require__(7);
 
 var ReactPropTypesSecret = __webpack_require__(10);
 var checkPropTypes = __webpack_require__(9);
@@ -33205,7 +33205,7 @@ function invariant(condition, message) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(11);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33281,7 +33281,7 @@ HashRouter.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(12);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33451,7 +33451,7 @@ module.exports = Array.isArray || function (arr) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33555,9 +33555,9 @@ Prompt.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__generatePath__ = __webpack_require__(23);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -33691,13 +33691,13 @@ Redirect.contextTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Router__ = __webpack_require__(12);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -33872,7 +33872,7 @@ StaticRouter.childContextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__matchPath__ = __webpack_require__(13);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34122,7 +34122,7 @@ module.exports = hoistNonReactStatics;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__generalBlock_jsx__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__personBlock_jsx__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__CSS_navmenu_css__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__CSS_navmenu_css__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__CSS_navmenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__CSS_navmenu_css__);
 
 
@@ -34168,7 +34168,7 @@ class MenuNav extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-4' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: __webpack_require__(88), id: 'imgFirst' })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: __webpack_require__(93), id: 'imgFirst' })
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -34860,7 +34860,7 @@ class PersonMain extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
 
 
@@ -35165,7 +35165,7 @@ _defineProperty(Page, "defaultProps", {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
 
 
@@ -35308,7 +35308,7 @@ function PersonEnrollee(props) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
 
 
@@ -35436,6 +35436,10 @@ exports.push([module.i, "\r\n.rowPersonMain{\r\n    margin-top:20px;\r\n}\r\n\r\
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AdminBlocks_adminFirstBlock_jsx__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AdminBlocks_adminSecondBlock_jsx__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AdminBlocks_adminThirdBlock_jsx__ = __webpack_require__(89);
+
+
 
 
 
@@ -35444,7 +35448,9 @@ class PersonAdmin extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'container-fluid' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__AdminBlocks_adminFirstBlock_jsx__["a" /* default */], null)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__AdminBlocks_adminFirstBlock_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AdminBlocks_adminSecondBlock_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AdminBlocks_adminThirdBlock_jsx__["a" /* default */], null)
         );
     }
 }
@@ -35460,26 +35466,142 @@ class PersonAdmin extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adminDepartment_jsx__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__adminSubject_jsx__ = __webpack_require__(85);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
 
+
+
+var start = 0;
+var end = 0;
+var counter = 0;
 
 class AdminFirstBlock extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            departmentData: [],
+            subjectData: [],
+            activeDepartPage: 1,
+            activeSubjectPage: 1,
+            departmentPageLength: 1,
+            subjectPageLength: 1
+        };
+    }
+
+    componentDidMount() {
+        this.getInitialAdminDataAsync();
+    }
+
+    componentDidUpdate(prevProps) {
+        this.buildDepartmentTable(this.state.departmentData);
+        this.buildSubjecttTable(this.state.subjectData);
+    }
+
+    getInitialAdminDataAsync() {
+        var _this = this;
+
+        return _asyncToGenerator(function* () {
+            try {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/adminApi/getBaseModelsAsync',
+                    cache: false,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Something went wrong!");
+                    },
+                    success: function (res) {
+                        _this.setState({
+                            departmentData: res[0],
+                            subjectData: res[1],
+                            departmentPageLength: Math.ceil(res[0].length / 7),
+                            subjectPageLength: Math.ceil(res[1].length / 7)
+                        });
+                    }
+                });
+            } catch (error) {
+                alert("Mistake while loading");
+            }
+        })();
+    }
+
+    buildDepartmentTable(departmentArry) {
+        start = (this.state.activeDepartPage - 1) * 7;
+        end = this.state.activeDepartPage * 7;
+        counter = start;
+        $('#tableDepartBody').empty();
+        const tBody = '#tableDepartBody';
+        if (departmentArry !== null && departmentArry.length > 0) {
+            $.each(departmentArry.slice(start, end), function (key, item) {
+                counter++;
+                const tr = $("<tr></tr>").append($('<td></td>').text(counter)).append($('<td></td>').text(item.name)).append($('<td></td>').append($('<button>Редактировать</button>').addClass('btn btn-info').on('click', function () {
+                    alert(item.name);
+                }))).append($('<td></td>').append($('<button>Удалить</button>').addClass('btn btn-danger').on('click', function () {
+                    alert(item.department_Id);
+                })));
+                tr.appendTo(tBody);
+            });
+        } else {
+            const divAlert = '#divTableDepart';
+            const alrt = $('<div></div>').addClass("alert alert-info").append($('<strong></strong>').text('information'));
+            alrt.appendTo(divAlert);
+        }
+    }
+
+    buildSubjecttTable(subjectArray) {
+        start = (this.state.activeSubjectPage - 1) * 7;
+        end = this.state.activeSubjectPage * 7;
+        counter = start;
+        $('#tableSubjectBody').empty();
+        const tBody = '#tableSubjectBody';
+        if (subjectArray !== null && subjectArray.length > 0) {
+            $.each(subjectArray.slice(start, end), function (key, item) {
+                counter++;
+                const tr = $("<tr></tr>").append($('<td></td>').text(counter)).append($('<td></td>').text(item.name)).append($('<td></td>').append($('<button>Редактировать</button>').addClass('btn btn-info').on('click', function () {
+                    alert(item.name);
+                }))).append($('<td></td>').append($('<button>Удалить</button>').addClass('btn btn-danger').on('click', function () {
+                    testSome();
+                })));
+                tr.appendTo(tBody);
+            });
+        } else {
+            const divAlert = '#divTableSubject';
+            const alrt = $('<div></div>').addClass("alert alert-info").append($('<strong></strong>').text('information'));
+            alrt.appendTo(divAlert);
+        }
+    }
+
+    handleDepartmentPageChange(pageNumber) {
+        this.setState({
+            activeDepartPage: pageNumber
+        });
+    }
+
+    handleSubjectPageChange(pageNumber) {
+        this.setState({
+            activeSubjectPage: pageNumber
+        });
     }
 
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__adminDepartment_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__adminSubject_jsx__["a" /* default */], null)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__adminDepartment_jsx__["a" /* default */], { pagesLength: this.state.departmentPageLength, activePage: this.state.activeDepartPage,
+                handlePageChange: this.handleDepartmentPageChange.bind(this)
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__adminSubject_jsx__["a" /* default */], { pagesLength: this.state.subjectPageLength, activePage: this.state.activeSubjectPage,
+                handlePageChange: this.handleSubjectPageChange.bind(this)
+            })
         );
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = AdminFirstBlock;
 
+
+function testSome() {
+    alert('some');
+}
 
 /***/ }),
 /* 84 */
@@ -35488,7 +35610,7 @@ class AdminFirstBlock extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Comp
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
 
 
@@ -35552,7 +35674,7 @@ function AdminDepartment(props) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
 
 
@@ -35611,12 +35733,458 @@ function AdminSubject(props) {
 
 /***/ }),
 /* 86 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adminEnrollee_jsx__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__adminAchievement_jsx__ = __webpack_require__(88);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+
+var start = 0;
+var end = 0;
+var counter = 0;
+
+class AdminSecondBlock extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            adminEnrolleeData: [],
+            achievementData: [],
+            activeAdminEnrolPage: 1,
+            activeAchievementPage: 1,
+            adminEnrolleePageLength: 1,
+            achievementPageLength: 1
+        };
+    }
+
+    componentDidMount() {
+        this.getInitialAdminDataAsync();
+    }
+
+    componentDidUpdate(prevProps) {
+        this.buildAdminEnrolleeTable(this.state.adminEnrolleeData);
+        this.buildAchievementTable(this.state.achievementData);
+    }
+
+    getInitialAdminDataAsync() {
+        var _this = this;
+
+        return _asyncToGenerator(function* () {
+            try {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/adminApi/getSecondBaseModelsAsync',
+                    cache: false,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Something went wrong!");
+                    },
+                    success: function (res) {
+                        _this.setState({
+                            adminEnrolleeData: res[0],
+                            achievementData: res[1],
+                            adminEnrolleePageLength: Math.ceil(res[0].length / 7),
+                            achievementPageLength: Math.ceil(res[1].length / 7)
+                        });
+                    }
+                });
+            } catch (error) {
+                alert("Mistake while loading");
+            }
+        })();
+    }
+
+    buildAdminEnrolleeTable(enrolleeArray) {
+        start = (this.state.activeAdminEnrolPage - 1) * 7;
+        end = this.state.activeAdminEnrolPage * 7;
+        counter = start;
+        $('#tableAdminEnrolleeBody').empty();
+        const tBody = '#tableAdminEnrolleeBody';
+        if (enrolleeArray !== null && enrolleeArray.length > 0) {
+            $.each(enrolleeArray.slice(start, end), function (key, item) {
+                counter++;
+                const tr = $("<tr></tr>").append($('<td></td>').text(counter)).append($('<td></td>').text(item.name)).append($('<td></td>').append($('<button>Редактировать</button>').addClass('btn btn-info').on('click', function () {
+                    alert(item.name);
+                }))).append($('<td></td>').append($('<button>Удалить</button>').addClass('btn btn-danger').on('click', function () {
+                    alert(item.department_Id);
+                })));
+                tr.appendTo(tBody);
+            });
+        } else {
+            const divAlert = '#divTableAdminEnrollee';
+            const alrt = $('<div></div>').addClass("alert alert-info").append($('<strong></strong>').text('information'));
+            alrt.appendTo(divAlert);
+        }
+    }
+
+    buildAchievementTable(achievementArray) {
+        start = (this.state.activeAchievementPage - 1) * 7;
+        end = this.state.activeAchievementPage * 7;
+        counter = start;
+        $('#tableAdminAchievementBody').empty();
+        const tBody = '#tableAdminAchievementBody';
+        if (achievementArray !== null && achievementArray.length > 0) {
+            $.each(achievementArray.slice(start, end), function (key, item) {
+                counter++;
+                const tr = $("<tr></tr>").append($('<td></td>').text(counter)).append($('<td></td>').text(item.name)).append($('<td></td>').append($('<button>Редактировать</button>').addClass('btn btn-info').on('click', function () {
+                    alert(item.name);
+                }))).append($('<td></td>').append($('<button>Удалить</button>').addClass('btn btn-danger').on('click', function () {
+                    alert('some');
+                })));
+                tr.appendTo(tBody);
+            });
+        } else {
+            const divAlert = '#divTableAdminAchievement';
+            const alrt = $('<div></div>').addClass("alert alert-info").append($('<strong></strong>').text('information'));
+            alrt.appendTo(divAlert);
+        }
+    }
+
+    handleAdminEnrolPageChange(pageNumber) {
+        this.setState({
+            activeAdminEnrolPage: pageNumber
+        });
+    }
+
+    handleAchievementPageChange(pageNumber) {
+        this.setState({
+            activeAchievementPage: pageNumber
+        });
+    }
+
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__adminEnrollee_jsx__["a" /* default */], { pagesLength: this.state.adminEnrolleePageLength, activePage: this.state.activeAdminEnrolPage,
+                handlePageChange: this.handleAdminEnrolPageChange.bind(this)
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__adminAchievement_jsx__["a" /* default */], { pagesLength: this.state.achievementPageLength, activePage: this.state.activeAchievementPage,
+                handlePageChange: this.handleAchievementPageChange.bind(this)
+            })
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = AdminSecondBlock;
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
+
+
+
+function AdminEnrollee(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "col-6" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "table",
+            { className: "table table-dark", id: "tableAdminEnrollee", itemProp: true },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "thead",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "tr",
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "td",
+                        null,
+                        "\u2116"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0410\u0431\u0438\u0442\u0443\u0440\u0438\u0435\u043D\u0442"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"
+                    )
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", { id: "tableAdminEnrolleeBody" })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { id: "divTableAdminEnrollee" }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default.a, {
+            activePage: props.activePage,
+            itemsCountPerPage: 1,
+            totalItemsCount: props.pagesLength,
+            pageRangeDisplayed: 10,
+            onChange: props.handlePageChange,
+            itemClass: "page-item",
+            linkClass: "page-link"
+        })
+    );
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (AdminEnrollee);
+
+/***/ }),
+/* 88 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
+
+
+
+function AdminAchievement(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "col-6" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "table",
+            { className: "table table-dark", id: "tableAdminAchievement", itemProp: true },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "thead",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "tr",
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "td",
+                        null,
+                        "\u2116"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0414\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"
+                    )
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", { id: "tableAdminAchievementBody" })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { id: "divTableAdminAchievement" }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default.a, {
+            activePage: props.activePage,
+            itemsCountPerPage: 1,
+            totalItemsCount: props.pagesLength,
+            pageRangeDisplayed: 10,
+            onChange: props.handlePageChange,
+            itemClass: "page-item",
+            linkClass: "page-link"
+        })
+    );
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (AdminAchievement);
+
+/***/ }),
+/* 89 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adminProgram_jsx__ = __webpack_require__(90);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+var start = 0;
+var end = 0;
+var counter = 0;
+
+class AdminThirdBlock extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            adminProgramData: [],
+            activeProgramPage: 1,
+            adminProgramPageLength: 1
+        };
+    }
+
+    componentDidMount() {
+        this.getInitialThirdAdminDataAsync();
+    }
+
+    componentDidUpdate(prevProps) {
+        this.buildAdminProgramTable(this.state.adminProgramData);
+    }
+
+    getInitialThirdAdminDataAsync() {
+        var _this = this;
+
+        return _asyncToGenerator(function* () {
+            try {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/adminApi/getThirdBaseModelsAsync',
+                    cache: false,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Something went wrong!");
+                    },
+                    success: function (res) {
+                        _this.setState({
+                            adminProgramData: res,
+                            adminProgramPageLength: Math.ceil(res.length / 7)
+                        });
+                    }
+                });
+            } catch (error) {
+                alert("Mistake while loading");
+            }
+        })();
+    }
+
+    buildAdminProgramTable(programArray) {
+        start = (this.state.activeProgramPage - 1) * 7;
+        end = this.state.activeProgramPage * 7;
+        counter = start;
+        $('#tableAdminProgramBody').empty();
+        const tBody = '#tableAdminProgramBody';
+        if (programArray !== null && programArray.length > 0) {
+            $.each(programArray.slice(start, end), function (key, item) {
+                counter++;
+                const tr = $("<tr></tr>").append($('<td></td>').text(counter)).append($('<td></td>').text(item.name)).append($('<td></td>').text(item.department_Id)).append($('<td></td>').text(item.plan)).append($('<td></td>').append($('<button>Редактировать</button>').addClass('btn btn-info').on('click', function () {
+                    alert(item.name);
+                }))).append($('<td></td>').append($('<button>Удалить</button>').addClass('btn btn-danger').on('click', function () {
+                    alert(item.department_Id);
+                })));
+                tr.appendTo(tBody);
+            });
+        } else {
+            const divAlert = '#divTableAdminProgram';
+            const alrt = $('<div></div>').addClass("alert alert-info").append($('<strong></strong>').text('information'));
+            alrt.appendTo(divAlert);
+        }
+    }
+
+    handleAdminProgramPageChange(pageNumber) {
+        this.setState({
+            activeProgramPage: pageNumber
+        });
+    }
+
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__adminProgram_jsx__["a" /* default */], { pagesLength: this.state.adminProgramPageLength, activePage: this.state.activeProgramPage,
+                handlePageChange: this.handleAdminProgramPageChange.bind(this)
+            })
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = AdminThirdBlock;
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination__);
+
+
+
+function AdminProgram(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "col-6" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "table",
+            { className: "table table-dark", id: "tableAdminProgram", itemProp: true },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "thead",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "tr",
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "td",
+                        null,
+                        "\u2116"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u041E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u0435"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u041F\u043B\u0430\u043D"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "th",
+                        null,
+                        "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"
+                    )
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", { id: "tableAdminProgramBody" })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { id: "divTableAdminProgram" }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_js_pagination___default.a, {
+            activePage: props.activePage,
+            itemsCountPerPage: 1,
+            totalItemsCount: props.pagesLength,
+            pageRangeDisplayed: 10,
+            onChange: props.handlePageChange,
+            itemClass: "page-item",
+            linkClass: "page-link"
+        })
+    );
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (AdminProgram);
+
+/***/ }),
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(87);
+var content = __webpack_require__(92);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -35641,7 +36209,7 @@ if(false) {
 }
 
 /***/ }),
-/* 87 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -35655,7 +36223,7 @@ exports.push([module.i, "\r\n\r\n.rowFirst {\r\n    background-color: midnightbl
 
 
 /***/ }),
-/* 88 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "d31848415e7bf81cf588c8d3d9937d99.jpg";

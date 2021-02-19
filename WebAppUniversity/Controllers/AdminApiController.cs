@@ -9,7 +9,7 @@ using WebAppUniversity.Models;
 
 namespace WebAppUniversity.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
     public class AdminApiController : ControllerBase
     {
@@ -20,10 +20,25 @@ namespace WebAppUniversity.Controllers
             _adminRepository = adminRepository;
         }
 
+        [Route("api/adminApi/getBaseModelsAsync")]
         [HttpGet]
         public async Task<IEnumerable<BaseModel>[]> GetBaseModelsAsync()
         {
             return await Task.WhenAll(GetDepartmentAsync(), GetSubjectAsync());
+        }
+
+        [Route("api/adminApi/getSecondBaseModelsAsync")]
+        [HttpGet]
+        public async Task<IEnumerable<BaseModel>[]> GetSecondBaseModelsAsync()
+        {
+            return await Task.WhenAll(GetEnrolleeAsync(), GetAchievementsAsync());
+        }
+
+        [Route("api/adminApi/getThirdBaseModelsAsync")]
+        [HttpGet]
+        public async Task<IEnumerable<BaseModel>> GetThirdBaseModelsAsync()
+        {
+            return await _adminRepository.GetItemsAsync<Programs>();
         }
 
         private async Task<IEnumerable<BaseModel>> GetDepartmentAsync()
@@ -34,6 +49,16 @@ namespace WebAppUniversity.Controllers
         private async Task<IEnumerable<BaseModel>> GetSubjectAsync()
         {
             return await _adminRepository.GetItemsAsync<Subject>().ConfigureAwait(false);
+        }
+
+        private async Task<IEnumerable<BaseModel>> GetEnrolleeAsync()
+        {
+            return await _adminRepository.GetItemsAsync<Enrollee>().ConfigureAwait(false);
+        }
+
+        private async Task<IEnumerable<BaseModel>> GetAchievementsAsync()
+        {
+            return await _adminRepository.GetItemsAsync<Achievement>().ConfigureAwait(false);
         }
     }
 }

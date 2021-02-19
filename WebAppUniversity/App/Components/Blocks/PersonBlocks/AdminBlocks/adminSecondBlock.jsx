@@ -1,21 +1,21 @@
 ﻿import React from 'react';
-import AdminDepartment from './adminDepartment.jsx';
-import AdminSubject from './adminSubject.jsx';
+import AdminEnrollee from './adminEnrollee.jsx';
+import AdminAchievement from './adminAchievement.jsx';
 
 var start = 0;
 var end = 0;
 var counter = 0;
 
-export default class AdminFirstBlock extends React.Component {
+export default class AdminSecondBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            departmentData: [],
-            subjectData: [],
-            activeDepartPage: 1,
-            activeSubjectPage: 1,
-            departmentPageLength: 1,
-            subjectPageLength: 1
+            adminEnrolleeData: [],
+            achievementData: [],
+            activeAdminEnrolPage: 1,
+            activeAchievementPage: 1,
+            adminEnrolleePageLength: 1,
+            achievementPageLength: 1
         };
     }
 
@@ -24,25 +24,25 @@ export default class AdminFirstBlock extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.buildDepartmentTable(this.state.departmentData);
-        this.buildSubjecttTable(this.state.subjectData);
+        this.buildAdminEnrolleeTable(this.state.adminEnrolleeData);
+        this.buildAchievementTable(this.state.achievementData);
     }
 
     async getInitialAdminDataAsync() {
         try {
             $.ajax({
                 type: 'GET',
-                url: 'api/adminApi/getBaseModelsAsync',
+                url: 'api/adminApi/getSecondBaseModelsAsync',
                 cache: false,
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("Something went wrong!");
                 },
                 success: (res) => {
                     this.setState({
-                        departmentData: res[0],
-                        subjectData: res[1],
-                        departmentPageLength: Math.ceil(res[0].length / 7),
-                        subjectPageLength: Math.ceil(res[1].length / 7)
+                        adminEnrolleeData: res[0],
+                        achievementData: res[1],
+                        adminEnrolleePageLength: Math.ceil(res[0].length / 7),
+                        achievementPageLength: Math.ceil(res[1].length / 7)
                     });
                 }
             });
@@ -50,14 +50,14 @@ export default class AdminFirstBlock extends React.Component {
         catch (error) { alert("Mistake while loading"); }
     }
 
-    buildDepartmentTable(departmentArry) {
-        start = (this.state.activeDepartPage - 1) * 7;
-        end = this.state.activeDepartPage * 7;
+    buildAdminEnrolleeTable(enrolleeArray) {
+        start = (this.state.activeAdminEnrolPage - 1) * 7;
+        end = this.state.activeAdminEnrolPage * 7;
         counter = start;
-        $('#tableDepartBody').empty();
-        const tBody = '#tableDepartBody';
-        if (departmentArry !== null && departmentArry.length > 0) {
-            $.each(departmentArry.slice(start, end), function (key, item) {
+        $('#tableAdminEnrolleeBody').empty();
+        const tBody = '#tableAdminEnrolleeBody';
+        if (enrolleeArray !== null && enrolleeArray.length > 0) {
+            $.each(enrolleeArray.slice(start, end), function (key, item) {
                 counter++;
                 const tr = $("<tr></tr>")
                     .append($('<td></td>').text(counter))
@@ -76,21 +76,21 @@ export default class AdminFirstBlock extends React.Component {
             });
         }
         else {
-            const divAlert = '#divTableDepart';
+            const divAlert = '#divTableAdminEnrollee';
             const alrt = $('<div></div>').addClass("alert alert-info")
                 .append($('<strong></strong>').text('information'));
             alrt.appendTo(divAlert);
         }
     }
 
-    buildSubjecttTable(subjectArray) {
-        start = (this.state.activeSubjectPage - 1) * 7;
-        end = this.state.activeSubjectPage * 7;
+    buildAchievementTable(achievementArray) {
+        start = (this.state.activeAchievementPage - 1) * 7;
+        end = this.state.activeAchievementPage * 7;
         counter = start;
-        $('#tableSubjectBody').empty();
-        const tBody = '#tableSubjectBody';
-        if (subjectArray !== null && subjectArray.length > 0) {
-            $.each(subjectArray.slice(start, end), function (key, item) {
+        $('#tableAdminAchievementBody').empty();
+        const tBody = '#tableAdminAchievementBody';
+        if (achievementArray !== null && achievementArray.length > 0) {
+            $.each(achievementArray.slice(start, end), function (key, item) {
                 counter++;
                 const tr = $("<tr></tr>")
                     .append($('<td></td>').text(counter))
@@ -103,45 +103,41 @@ export default class AdminFirstBlock extends React.Component {
                     .append($('<td></td>').append($('<button>Удалить</button>')
                         .addClass('btn btn-danger')
                         .on('click', function () {
-                            testSome();
+                            alert('some');
                         })));
                 tr.appendTo(tBody);
             });
         }
         else {
-            const divAlert = '#divTableSubject';
+            const divAlert = '#divTableAdminAchievement';
             const alrt = $('<div></div>').addClass("alert alert-info")
                 .append($('<strong></strong>').text('information'));
             alrt.appendTo(divAlert);
         }
     }
 
-    handleDepartmentPageChange(pageNumber) {
+    handleAdminEnrolPageChange(pageNumber) {
         this.setState({
-            activeDepartPage: pageNumber
+            activeAdminEnrolPage: pageNumber
         });
     }
 
-    handleSubjectPageChange(pageNumber) {
+    handleAchievementPageChange(pageNumber) {
         this.setState({
-            activeSubjectPage: pageNumber
+            activeAchievementPage: pageNumber
         });
     }
 
     render() {
         return (
             <div className="row">
-                <AdminDepartment pagesLength={this.state.departmentPageLength} activePage={this.state.activeDepartPage}
-                    handlePageChange={this.handleDepartmentPageChange.bind(this)}
+                <AdminEnrollee pagesLength={this.state.adminEnrolleePageLength} activePage={this.state.activeAdminEnrolPage}
+                    handlePageChange={this.handleAdminEnrolPageChange.bind(this)}
                 />
-                <AdminSubject pagesLength={this.state.subjectPageLength} activePage={this.state.activeSubjectPage}
-                    handlePageChange={this.handleSubjectPageChange.bind(this)}
+                <AdminAchievement pagesLength={this.state.achievementPageLength} activePage={this.state.activeAchievementPage}
+                    handlePageChange={this.handleAchievementPageChange.bind(this)}
                 />
             </div>
         );
     }
-}
-
-function testSome() {
-    alert('some');
 }
