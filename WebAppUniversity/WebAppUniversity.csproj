@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>bd8d4a36-7c29-4429-bb1f-58b327ab7f5c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,12 @@
   <ItemGroup>
     <ProjectReference Include="..\WebAppUniversity.DbRepository\WebAppUniversity.DbRepository.csproj" />
     <ProjectReference Include="..\WebAppUniversity.Models\WebAppUniversity.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App\src\constants\" />
+    <Folder Include="App\src\helpers\" />
+    <Folder Include="App\src\css\" />
   </ItemGroup>
 
 </Project>

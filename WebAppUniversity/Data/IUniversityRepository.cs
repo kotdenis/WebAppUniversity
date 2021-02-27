@@ -6,7 +6,7 @@ using WebAppUniversity.ViewModels;
 
 namespace WebAppUniversity.Data
 {
-    public interface IPersonRepository
+    public interface IUniversityRepository
     {
         Task<IEnumerable<EnrolleeAndDepartment>> GetFullEnrolleeDepartmentAsync();
         Task<IEnumerable<EnrolleeAndDepartment>> GetConcreteEnrolleeDepartmentAsync(string programName, string departmentName);

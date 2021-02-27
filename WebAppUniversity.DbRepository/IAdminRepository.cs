@@ -11,7 +11,7 @@ namespace WebAppUniversity.DbRepository
         Task<IEnumerable<U>> GetItemsAsync<U>() where U : T;
         Task<U> GetItemAsync<U>(int id) where U : T;
         Task CreateAsync<U>(U item) where U : T;
-        Task Update<U>(U item) where U : T;
+        Task UpdateAsync<U>(int id, U item) where U : T;
         Task DeleteAsync<U>(int id) where U : T;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,9 +50,37 @@ namespace WebAppUniversity.DbRepository
             catch(Exception) { return new List<TEntity>(); }
         }
 
-        public Task Update<TEntity>(TEntity item) where TEntity : BaseModel
+        public async Task UpdateAsync<TEntity>(int id, TEntity item) where TEntity : BaseModel
         {
-            return null;
+            try
+            {
+                if(item is Department dep && dep.Department_Id == id)
+                {
+                    context.Entry(dep).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+                if(item is Subject sub && sub.Subject_Id == id)
+                {
+                    context.Entry(sub).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+                if(item is Enrollee enr && enr.Enrollee_Id == id)
+                {
+                    context.Entry(enr).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+                if(item is Achievement ach && ach.Achievement_Id == id)
+                {
+                    context.Entry(ach).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+                if(item is Programs prog && prog.Program_Id == id)
+                {
+                    context.Entry(prog).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch(Exception) {  }
         }
     }
 }

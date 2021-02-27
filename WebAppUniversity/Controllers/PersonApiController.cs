@@ -17,10 +17,10 @@ namespace WebAppUniversity.Controllers
     [ApiController]
     public class PersonApiController : ControllerBase
     {
-        private readonly IPersonRepository _personRepository;
-        public PersonApiController(IPersonRepository personRepository)
+        private readonly IUniversityRepository _universityRepository;
+        public PersonApiController(IUniversityRepository universityRepository)
         {
-            _personRepository = personRepository;
+            _universityRepository = universityRepository;
         }
 
         [HttpGet]
@@ -33,22 +33,22 @@ namespace WebAppUniversity.Controllers
         [HttpPost]
         public async Task<IEnumerable<EnrolleeAndDepartment>> GetConcreteEnrolleeAndDepartmentAsync([FromBody]EnrolleeAndDepartment name)
         {
-            return await _personRepository.GetConcreteEnrolleeDepartmentAsync(name.ProgramName, name.DepartmentName);
+            return await _universityRepository.GetConcreteEnrolleeDepartmentAsync(name.ProgramName, name.DepartmentName);
         }
 
         private async Task<IEnumerable<IBaseViewModel>> GetEnrolleeAndDepartmentAsync()
         {
-            return await _personRepository.GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
+            return await _universityRepository.GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
         }
 
         private async Task<IEnumerable<IBaseViewModel>> GetUgeResultsAsync()
         {
-            return await _personRepository.GetUgeResultsAsync().ConfigureAwait(false);
+            return await _universityRepository.GetUgeResultsAsync().ConfigureAwait(false);
         }
 
         private async Task<IEnumerable<IBaseViewModel>> GetStatementsAsync()
         {
-            return await _personRepository.GetStatementsAsync().ConfigureAwait(false);
+            return await _universityRepository.GetStatementsAsync().ConfigureAwait(false);
         }
     }
 }

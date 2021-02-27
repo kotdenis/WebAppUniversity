@@ -38,7 +38,7 @@ export default class PersonMain extends React.Component {
     
     async getInitialDataAsync() {
         try {
-            $.ajax({
+            await $.ajax({
                 type: 'GET',
                 url: 'api/personapi',
                 cache: false,
@@ -66,7 +66,7 @@ export default class PersonMain extends React.Component {
             departmentName: $('#selDepartment').val()
         };
         try {
-            $.ajax({
+            await $.ajax({
                 type: 'POST',
                 accepts: 'application/json',
                 url: 'api/personapi',

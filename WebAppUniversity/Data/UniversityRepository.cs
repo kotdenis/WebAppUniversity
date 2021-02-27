@@ -2,19 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using WebAppUniversity.DbRepository;
-using WebAppUniversity.Models;
 using WebAppUniversity.ViewModels;
 
 namespace WebAppUniversity.Data
 {
-    public sealed class PersonRepository : IPersonRepository
+    public class UniversityRepository : IUniversityRepository
     {
         private readonly UniversityDbContext _context;
-        
-        public PersonRepository(UniversityDbContext context)
+
+        public UniversityRepository(UniversityDbContext context)
         {
             _context = context;
         }
@@ -44,7 +42,7 @@ namespace WebAppUniversity.Data
                                   ProgramName = Program.Name
                               }).ToListAsync().ConfigureAwait(false);
             }
-            catch(Exception) { return new List<EnrolleeAndDepartment>(); }
+            catch (Exception) { return new List<EnrolleeAndDepartment>(); }
         }
 
         public async Task<IEnumerable<EnrolleeAndDepartment>> GetConcreteEnrolleeDepartmentAsync(string programName, string departmentName)
@@ -91,8 +89,8 @@ namespace WebAppUniversity.Data
             }
             catch (Exception) { return new List<UgeResults>(); }
         }
-        
-        
+
+
         public async Task<IEnumerable<Statement>> GetStatementsAsync()
         {
             try

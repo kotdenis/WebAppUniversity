@@ -8,10 +8,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using WebAppUniversity.DbRepository;
 using WebAppUniversity.Models;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using WebAppUniversity.Data;
+using WebAppUniversity.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebAppUniversity
 {
@@ -34,8 +39,37 @@ namespace WebAppUniversity
                 maxRetryDelay: TimeSpan.FromSeconds(30),
                 errorNumbersToAdd: null);
             }));
+
+            services.AddDbContext<AppIdentityDbContext>(opts =>
+            opts.UseSqlServer(Configuration["Data:UniversityIdentity:ConnectionString"]));
+
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(opts =>
+            {
+                //opts.RequireHttpsMetadata = false;
+                opts.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidAudience = Configuration["Data:JWT:Audience"],
+                    ValidIssuer = Configuration["Data:JWT:Issuer"],
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Data:JWT:KEY"]))
+                };
+            });
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddScoped<IAdminRepository<BaseModel>, AdminRepository>();
-            services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IUniversityRepository, UniversityRepository>();
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
@@ -58,7 +92,8 @@ namespace WebAppUniversity
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStatusCodePages();
-            app.UseStaticFiles(); 
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

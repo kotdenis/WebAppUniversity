@@ -1,11 +1,16 @@
 ﻿import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MenuNav from './Components/navMenu.jsx';
+import { Provider } from 'react-redux';
+import store from './src/reducers/personalReducers';
+//import MenuNav from './Components/navMenu.jsx';
+import App from './src/components/app.jsx';
 
 render(
-    <Router>
-        <MenuNav />
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <App />
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );

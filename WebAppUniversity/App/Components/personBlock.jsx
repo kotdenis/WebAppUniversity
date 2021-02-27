@@ -28,16 +28,16 @@ export default class PersonBlock extends React.Component {
                     </div>
                     <div className="col-10">
                         <Switch>
-                            <Route path='/personadmin'>
+                            <Route path='/personadmin' component={PersonAdmin} >
                                 <PersonAdmin />
                             </Route>
-                            <Route path='/'>
+                            <Route path='/' component={PersonMain} >
                                 <PersonMain />
                             </Route>
                         </Switch>
                     </div>
                 </div>
             </Router>
-            )
+        );
     }
 }
