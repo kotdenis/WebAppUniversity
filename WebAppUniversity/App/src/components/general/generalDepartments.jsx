@@ -12,7 +12,7 @@ export default class GeneralDepartments extends React.Component {
                 <div className="row">
                     <div className="col-md-6 col-lg-6">
                         <div className="card">
-                            <img src={require("../images/artificial-intelligence.jpg")} />
+                            <img src={require("../../images/artificial-intelligence.jpg")} />
                             <div className="card-img-overlay">
                                 <h4 className="card-title" style={{ color: "white" }}>
                                     John Doe</h4>
@@ -23,7 +23,7 @@ export default class GeneralDepartments extends React.Component {
                     </div>
                     <div className="col-md-6 col-lg-6">
                         <div className="card">
-                            <img src={require("../images/trilobite.jpg")} />
+                            <img src={require("../../images/trilobite.jpg")} />
                             <div className="card-img-overlay">
                                 <h4 className="card-title" style={{ color: "white" }}>
                                     John Doe</h4>

@@ -6,7 +6,7 @@ export function buildEnrolleeDepartTable(datas, activePage) {
     $('#bodyTableEnrolleeDepartment').empty();
     const tBody = '#bodyTableEnrolleeDepartment';
     if (typeof datas !== 'undefined' && datas !== null && datas.length > 0) {
-        $.each(datas[0].slice(start, end), function (key, item) {
+        $.each(datas.slice(start, end), function (key, item) {
             counter++;
             const tr = $("<tr></tr>")
                 .append($('<td></td>').text(counter))
@@ -32,7 +32,7 @@ export function buildResultUgeTable(datas, activePage) {
     $('#tableUGEBody').empty();
     const tBody = '#tableUGEBody';
     if (typeof datas !== 'undefined' && datas !== null && datas.length > 0) {
-        $.each(datas[1].slice(start, end), function (key, item) {
+        $.each(datas.slice(start, end), function (key, item) {
             counter++;
             const tr = $("<tr></tr>")
                 .append($('<td></td>').text(counter))
@@ -59,7 +59,7 @@ export function buildStatementTable(datas, activePage) {
     $('#tableStatementBody').empty();
     const tBody = '#tableStatementBody';
     if (typeof datas !== 'undefined' && datas !== null && datas.length > 0) {
-        $.each(datas[2].slice(start, end), function (key, item) {
+        $.each(datas.slice(start, end), function (key, item) {
             counter++;
             const tr = $("<tr></tr>")
                 .append($('<td></td>').text(counter))
@@ -75,6 +75,24 @@ export function buildStatementTable(datas, activePage) {
         const divAlert = '#divTableStatement';
         const alrt = $('<div></div>').addClass("alert alert-info")
             .append($('<strong></strong>').text('information'));
+        alrt.append($('<button></button>').addClass('btn btn-danger')
+            .on('click', () => $('.alert-info').hide()).text('&times;'));
         alrt.appendTo(divAlert);
     }
 }
+
+export function fillSelectWithOptions(datas) {
+    $('#selectProgram').empty();
+    $('#selectDepartment').empty();
+    const selPr = $('#selectProgram');
+    const selDep = $('#selectDepartment');
+    if (typeof datas !== 'undefined' && datas !== null && datas.length > 0) {
+        const dataProg = [...new Set(datas.map(item => item.programName))];
+        const dataDep = [...new Set(datas.map(item => item.departmentName))];
+        $('<option />').appendTo(selPr);
+        $('<option />').appendTo(selDep);
+        dataProg.map(d => ($('<option>< option />').text(d)).appendTo(selPr));
+        dataDep.map(d => ($('<option>< option />').text(d)).appendTo(selDep));
+    }
+}
+

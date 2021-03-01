@@ -22,7 +22,7 @@ namespace WebAppUniversity.Controllers
             _adminRepository = adminRepository;
         }
 
-        [Authorize]
+       
         [Route("api/adminApi/getBaseModelsAsync")]
         [HttpGet]
         public async Task<IEnumerable<BaseModel>[]> GetBaseModelsAsync()

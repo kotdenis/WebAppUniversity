@@ -34,7 +34,7 @@ export default class Header extends React.Component {
                         </div>
                     </div>
                     <div className="col-md-4 col-lg-4">
-                        <img className="ml-2" src={require('./images/learning.jpg')} style={{ width: "100%", height: "100%" }} />
+                        <img className="ml-2" src={require('../images/learning.jpg')} style={{ width: "100%", height: "100%" }} />
                     </div>
                 </div>
                 <div className="modal" id="enterModal">
