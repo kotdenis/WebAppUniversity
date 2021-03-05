@@ -36,6 +36,7 @@ export const AdminAchievement = ({ activePage, pagesLength, handlePageChange, ha
                         <form>
                             <div className="form-group">
                                 <label>Наименование</label>
+                                <input type="hidden" id="achievementModalId" />
                                 <input type="text" className="form-control" id="achievementModalInput" />
                             </div>
                         </form>

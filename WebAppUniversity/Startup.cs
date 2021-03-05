@@ -17,6 +17,7 @@ using WebAppUniversity.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace WebAppUniversity
 {

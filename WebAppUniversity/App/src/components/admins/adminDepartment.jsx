@@ -36,6 +36,7 @@ export const AdminDepartment = ({ activePage, pagesLength, handlePageChange, han
                         <form>
                             <div className="form-group">
                                 <label>Наименование</label>
+                                <input type="hidden" id="departmentModalId" />
                                 <input type="text" className="form-control" id="departmentModalInput" />
                             </div>
                         </form>

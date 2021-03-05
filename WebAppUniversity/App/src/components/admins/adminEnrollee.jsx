@@ -36,6 +36,7 @@ export const AdminEnrollee = ({ activePage, pagesLength, handlePageChange, handl
                         <form>
                             <div className="form-group">
                                 <label>Наименование</label>
+                                <input type="hidden" id="enrolleeModalId" />
                                 <input type="text" className="form-control" id="enrolleeModalInput" />
                             </div>
                         </form>

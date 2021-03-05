@@ -1,10 +1,14 @@
-﻿import { combineReducers } from 'redux';
+﻿import {
+    GET_FIRST_ADMINDATA,
+    GET_SECOND_ADMINDATA,
+    GET_THIRD_ADMINDATA
+} from '../constants/constants';
 
 const initialState = [];
 
 export function rowOne(state = initialState, action) {
     switch (action.type) {
-        case 'GET_FIRST_ADMINDATA':
+        case GET_FIRST_ADMINDATA:
             return [
                 ...state,
                 action.payload
@@ -15,7 +19,7 @@ export function rowOne(state = initialState, action) {
 
 export function rowTwo(state = initialState, action) {
     switch (action.type) {
-        case 'GET_SECOND_ADMINDATA':
+        case GET_SECOND_ADMINDATA:
             return [
                 ...state,
                 action.payload
@@ -26,7 +30,7 @@ export function rowTwo(state = initialState, action) {
 
 export function rowThree(state = initialState, action) {
     switch (action.type) {
-        case 'GET_THIRD_ADMINDATA':
+        case GET_THIRD_ADMINDATA:
             return [
                 ...state,
                 action.payload
@@ -36,23 +40,3 @@ export function rowThree(state = initialState, action) {
 }
 
 
-//export function adminReducer(state = initialState, action) {
-//    switch (action.type) {
-//        case 'GET_FIRST_ADMINDATA':
-//            return [
-//                ...state,
-//                action.payload
-//            ];
-//        case 'GET_SECOND_ADMINDATA':
-//            return [
-//                ...state,
-//                action.payload
-//            ];
-//        case 'GET_THIRD_ADMINDATA':
-//            return [
-//                ...state,
-//                action.payload
-//            ];
-//        default: return state;
-//    }
-//}

@@ -20,9 +20,4 @@
     <ProjectReference Include="..\WebAppUniversity.Models\WebAppUniversity.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="App\src\constants\" />
-    <Folder Include="App\src\css\" />
-  </ItemGroup>
-
 </Project>

@@ -3,6 +3,8 @@ import { Route } from 'react-router';
 import Header from './header.jsx';
 import GeneralMain from './general/generalMain.jsx';
 import PersanolMain from './personal/personalMain.jsx';
+import { PrivateRoute } from './privateRoute.jsx';
+import Register from './authorize/register.jsx';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -17,7 +19,8 @@ export default class App extends React.Component {
                 </div>
                 <div className="mt-2 pt-2">
                     <Route exact path='/' component={GeneralMain} />
-                    <Route path='/personal' component={PersanolMain} />
+                    <PrivateRoute path='/personal' component={PersanolMain} />
+                    <Route path='/register' component={Register} />
                 </div>
             </div>
         );

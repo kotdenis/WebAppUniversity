@@ -36,6 +36,7 @@ export const AdminSubject = ({ activePage, pagesLength, handlePageChange, handle
                         <form>
                             <div className="form-group">
                                 <label>Наименование</label>
+                                <input type="hidden" id="subjectModalId" />
                                 <input type="text" className="form-control" id="subjectAdminModalInput" />
                             </div>
                         </form>

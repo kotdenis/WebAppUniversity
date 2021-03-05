@@ -5,21 +5,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WebAppUniversity.DbRepository;
 using WebAppUniversity.Models;
 
 namespace WebAppUniversity.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class AdminApiController : ControllerBase
     {
-        IAdminRepository<BaseModel> _adminRepository;
+        private readonly IAdminRepository<BaseModel> _adminRepository;
+        private readonly ILogger _logger;
 
-        public AdminApiController(IAdminRepository<BaseModel> adminRepository)
+        public AdminApiController(IAdminRepository<BaseModel> adminRepository, ILogger<AdminApiController> logger)
         {
             _adminRepository = adminRepository;
+            _logger = logger;
         }
 
        
@@ -33,7 +37,7 @@ namespace WebAppUniversity.Controllers
         [Route("api/adminApi/getSecondBaseModelsAsync")]
         [HttpGet]
         public async Task<IEnumerable<BaseModel>[]> GetSecondBaseModelsAsync()
-        { 
+        {
             return await Task.WhenAll(GetEnrolleeAsync(), GetAchievementsAsync());
         }
 
@@ -50,12 +54,17 @@ namespace WebAppUniversity.Controllers
         {
             if (department == null)
                 return BadRequest();
+            
             try
             {
                 await _adminRepository.UpdateAsync<Department>(id, department);
                 return Ok();
             }
-            catch(Exception) { return BadRequest(); }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
         }
 
         [Route("api/adminApi/editSubjectModelAsync/{id?}")]
@@ -69,7 +78,11 @@ namespace WebAppUniversity.Controllers
                 await _adminRepository.UpdateAsync<Subject>(id, subs);
                 return Ok();
             }
-            catch (Exception) { return BadRequest(); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
         }
 
         [Route("api/adminApi/editEnrolleeModelAsync/{id?}")]
@@ -83,7 +96,11 @@ namespace WebAppUniversity.Controllers
                 await _adminRepository.UpdateAsync<Enrollee>(id, enrollee);
                 return Ok();
             }
-            catch (Exception) { return BadRequest(); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
         }
 
         [Route("api/adminApi/editAchievementModelAsync/{id?}")]
@@ -97,7 +114,11 @@ namespace WebAppUniversity.Controllers
                 await _adminRepository.UpdateAsync<Achievement>(id, achievement);
                 return Ok();
             }
-            catch (Exception) { return BadRequest(); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
         }
 
         [Route("api/adminApi/editProgramsModelAsync/{id?}")]
@@ -111,7 +132,11 @@ namespace WebAppUniversity.Controllers
                 await _adminRepository.UpdateAsync<Programs>(id, programs);
                 return Ok();
             }
-            catch (Exception) { return BadRequest(); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
         }
 
         private async Task<IEnumerable<BaseModel>> GetDepartmentAsync()

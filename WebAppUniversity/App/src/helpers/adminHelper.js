@@ -16,12 +16,13 @@ export function buildAdminDepartmentTable(datas, activePage) {
                     .on('click', function () {
                         $('#adminDepartmentModal').show();
                         $('#departmentModalInput').val(item.name);
-                        departmentId = item.department_Id;
+                        $('#departmentModalId').val(item.department_Id);
                     })))
                 .append($('<td></td>').append($('<button>Удалить</button>')
                     .addClass('btn btn-danger')
                     .on('click', function () {
-                        alert(item.department_Id);
+                        let tok = localStorage.getItem('user');
+                        alert(tok);
                     })));
             tr.appendTo(tBody);
         });
@@ -51,7 +52,7 @@ export function buildAdminSubjectTable(datas, activePage) {
                     .on('click', function () {
                         $('#subjectAdminModal').show();
                         $('#subjectAdminModalInput').val(item.name);
-                        subjectId = item.subject_Id;
+                        $('#subjectModalId').val(item.subject_Id);
                     })))
                 .append($('<td></td>').append($('<button>Удалить</button>')
                     .addClass('btn btn-danger')
@@ -86,12 +87,12 @@ export function buildAdminEnrolleeTable(datas, activePage) {
                     .on('click', function () {
                         $('#enrolleeModal').show();
                         $('#enrolleeModalInput').val(item.name);
-                        enrolleeId = item.enrollee_Id;
+                        $('#enrolleeModalId').val(item.enrollee_Id);
                     })))
                 .append($('<td></td>').append($('<button>Удалить</button>')
                     .addClass('btn btn-danger')
                     .on('click', function () {
-                        alert(' ');
+                        alert(item.name);
                     })));
             tr.appendTo(tBody);
         });
@@ -121,7 +122,7 @@ export function buildAchievementTable(datas, activePage) {
                     .on('click', function () {
                         $('#achievementModal').show();
                         $('#achievementModalInput').val(item.name);
-                        achievementId = item.achievement_Id;
+                        $('#achievementModalId').val(item.achievement_Id);
                     })))
                 .append($('<td></td>').append($('<button>Удалить</button>')
                     .addClass('btn btn-danger')
@@ -159,8 +160,8 @@ export function buildAdminProgramTable(datas, activePage) {
                         $('#programModal').show();
                         $('#programModalNameInput').val(item.name);
                         $('#programModalPlanInput').val(item.plan);
-                        programId = item.program_Id;
-                        department_Id = item.department_Id;
+                        $('#programModalNameId').val(item.program_Id);
+                        $('#programModalPlanInput').val(item.department_Id);
                     })))
                 .append($('<td></td>').append($('<button>Удалить</button>')
                     .addClass('btn btn-danger')

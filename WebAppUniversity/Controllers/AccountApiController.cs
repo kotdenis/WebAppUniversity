@@ -15,7 +15,7 @@ using WebAppUniversity.Identity.IdentityModels;
 
 namespace WebAppUniversity.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class AccountApiController : ControllerBase
     {
@@ -33,8 +33,10 @@ namespace WebAppUniversity.Controllers
             _configuration = configuration;
         }
 
+        
+        //[ValidateAntiForgeryToken]
+        [Route("api/accountApi/login")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody]LoginModel loginModel)
         {
             IdentityUser user = await _userManager.FindByNameAsync(loginModel.Name);
@@ -45,22 +47,32 @@ namespace WebAppUniversity.Controllers
                 {
                     var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Data:JWT:KEY"]));
 
+                    var claims = new List<Claim> 
+                    {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    };
+
                     var token = new JwtSecurityToken(
                         issuer: _configuration["Data:JWT:Issuer"],
                         audience: _configuration["Data:JWT:Audience"],
                         expires: DateTime.Now.AddHours(1),
+                        claims: claims,
                         signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
                         );
                     return Ok(new
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo
+                        expiration = token.ValidTo,
+                        isLogged = true, 
+                        name = loginModel.Name
                     });
                 }
             }
             return Unauthorized();
         }
 
+        [Route("api/accountApi/register")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody]RegisterModel registerModel)
@@ -79,12 +91,26 @@ namespace WebAppUniversity.Controllers
 
                 };
                 var result = await _userManager.CreateAsync(user, registerModel.Password);
-                if(!result.Succeeded)
-                    return StatusCode(StatusCodes.Status501NotImplemented, new { status = "Error", message = "Try again" });
+                if (!result.Succeeded)
+                {
+                    string error = "";
+                    foreach (var err in result.Errors)
+                        error += err.Description + "\r\n";
+                    return StatusCode(StatusCodes.Status501NotImplemented,
+                    new { status = "Error", message = error });
+                }
                 await _signInManager.SignInAsync(user, false);
                 return Ok(new { status = "Success", message = "User created" });
             }
             return StatusCode(StatusCodes.Status501NotImplemented, new { status = "Error", message = "Try again" });
+        }
+
+        [Route("api/accountApi/logout")]
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok(new { status = "Ok" });
         }
     }
 }

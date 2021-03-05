@@ -38,12 +38,14 @@ export const AdminProgram = ({ activePage, pagesLength, handlePageChange, handle
                         <form>
                             <div className="form-group">
                                 <label>Наименование</label>
+                                <input type="hidden" id="programModalNameId" />
                                 <input type="text" className="form-control" id="programModalNameInput" />
                             </div>
                         </form>
                         <form>
                             <div className="form-group">
                                 <label>План</label>
+                                <input type="hidden" id="programModalPlanInput" />
                                 <input type="text" className="form-control" id="programModalPlanInput" />
                             </div>
                         </form>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +13,8 @@ using WebAppUniversity.ViewModels;
 
 namespace WebAppUniversity.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
-    //[Route("api/[controller]/[action]")]
     [ApiController]
     public class PersonApiController : ControllerBase
     {
@@ -26,7 +27,8 @@ namespace WebAppUniversity.Controllers
         [HttpGet]
         public async Task<IEnumerable<IBaseViewModel>[]> GetInitialDataAsync()
         {
-            return await Task.WhenAll(GetEnrolleeAndDepartmentAsync(), GetUgeResultsAsync(), GetStatementsAsync());
+            return await Task.WhenAll(_universityRepository.GetBaseEnrolleeAndDepartmentAsync(), 
+                _universityRepository.GetBaseUgeAsync(), _universityRepository.GetBaseStatementsAsync());
         }
 
 
@@ -34,21 +36,6 @@ namespace WebAppUniversity.Controllers
         public async Task<IEnumerable<EnrolleeAndDepartment>> GetConcreteEnrolleeAndDepartmentAsync([FromBody]EnrolleeAndDepartment name)
         {
             return await _universityRepository.GetConcreteEnrolleeDepartmentAsync(name.ProgramName, name.DepartmentName);
-        }
-
-        private async Task<IEnumerable<IBaseViewModel>> GetEnrolleeAndDepartmentAsync()
-        {
-            return await _universityRepository.GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
-        }
-
-        private async Task<IEnumerable<IBaseViewModel>> GetUgeResultsAsync()
-        {
-            return await _universityRepository.GetUgeResultsAsync().ConfigureAwait(false);
-        }
-
-        private async Task<IEnumerable<IBaseViewModel>> GetStatementsAsync()
-        {
-            return await _universityRepository.GetStatementsAsync().ConfigureAwait(false);
         }
     }
 }

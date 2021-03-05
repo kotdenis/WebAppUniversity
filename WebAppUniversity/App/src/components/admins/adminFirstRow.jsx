@@ -4,6 +4,7 @@ import { AdminSubject } from './adminSubject.jsx';
 import { AdminDepartment } from './adminDepartment.jsx';
 import { buildAdminDepartmentTable, buildAdminSubjectTable } from '../../helpers/adminHelper';
 import { getFirstAdminData } from '../../actions/adminActions/actions';
+import { editDepartmentData, editSubjectData } from '../../actions/adminActions/editActions';
 
 class AdminFirstRow extends React.Component {
     constructor(props) {
@@ -44,18 +45,18 @@ class AdminFirstRow extends React.Component {
     }
 
     render() {
-        const { departmentPageLength, subjectPageLength } = this.props;
+        const { departmentPageLength, subjectPageLength, onEditDepartmentData, onEditSubjectData } = this.props;
         return (
             <div className="row d-flex">
                 <AdminDepartment activePage={this.state.activeDepartPage} pagesLength={departmentPageLength}
                     handlePageChange={this.handleDepartmentPageChange.bind(this)}
                     handleButtonCancel={this.makeDepartmentModalCancel.bind(this)}
-                    handleButtonEdit={() => { }}
+                    handleButtonEdit={onEditDepartmentData}
                 />
                 <AdminSubject activePage={this.state.activeSubjectPage} pagesLength={subjectPageLength}
                     handlePageChange={this.handleSubjectPageChange.bind(this)}
                     handleButtonCancel={this.makeSubjectModalCancel.bind(this)}
-                    handleButtonEdit={() => { }}
+                    handleButtonEdit={onEditSubjectData}
                 />
             </div>
         );
@@ -76,9 +77,19 @@ const mapStateToProps = function (state) {
     return { departmentData, subjectData, departmentPageLength, subjectPageLength };
 };
 
+
 const mapDispatchToProps = function (dispatch) {
     return {
-        onGetDatas: () => dispatch(getFirstAdminData())
+        onGetDatas: () => dispatch(getFirstAdminData()),
+        onEditDepartmentData: () => dispatch(editDepartmentData({
+            department_Id: $('#departmentModalId').val(),
+            name: $('#departmentModalInput').val(),
+            description: ''
+        }, departmentData)),
+        onEditSubjectData: () => dispatch(editSubjectData({
+            subject_Id: $('#subjectModalId').val(),
+            name: $('#subjectAdminModalInput').val()
+        }, subjectData))
     };
 };
 

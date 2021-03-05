@@ -1,4 +1,6 @@
-﻿export const GET_PERSONAL_DATA = 'GET_PERSONAL_DATA';
+﻿import { GET_PERSONAL_DATA, GET_DATA_BYPROGRAM } from '../../constants/constants';
+
+
 function getPersonalDatas(datas) {
     return {
         type: GET_PERSONAL_DATA,
@@ -6,7 +8,6 @@ function getPersonalDatas(datas) {
     };
 }
 
-export const GET_DATA_BYPROGRAM = 'GET_DATA_BYPROGRAM';
 function getDataByProgrem(datas) {
     return {
         type: GET_DATA_BYPROGRAM,
@@ -14,11 +15,17 @@ function getDataByProgrem(datas) {
     };
 }
 
+const userToken = () => {
+    let user = localStorage.getItem('user');
+    return { 'Authorization': 'Bearer ' + user };
+};
+
 export function getPersonalFetch() {
     return function (dispatch) {
         return $.ajax({
             type: 'GET',
             url: 'api/personapi',
+            headers: userToken,
             cache: false,
             success: (result) => {
                 dispatch(getPersonalDatas(result));

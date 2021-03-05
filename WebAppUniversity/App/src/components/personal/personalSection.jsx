@@ -9,11 +9,8 @@ import {
     buildStatementTable, fillSelectWithOptions
 } from '../../helpers/personalHelpers';
 import { getPersonalFetch, getDataByProgramName } from '../../actions/personalActions/actions';
-import AdminFirstRow from '../admins/adminFirstRow.jsx';
-import AdminSecondRow from '../admins/adminSecondRow.jsx';
-import AdminThirdRow from '../admins/adminThirdRow.jsx';
 
-class PersanolMain extends React.Component {
+class PersonalSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -55,50 +52,22 @@ class PersanolMain extends React.Component {
     render() {
         const { pageEnrDepartLength, pageResultLength, pageStatementLength, onGetConcreteDatas } = this.props;
         return (
-            <Router>
-                <div className="row d-flex">
-                    <aside className="col-md-2 col-lg-2">
-                        <nav>
-                            <ul style={{ fontWeight: "bold" }}>
-                                <li>
-                                    <Link to={'/personal'}>Общая</Link>
-                                </li>
-                                <li>
-                                    <Link to={'/adminSection'}>Управление</Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </aside>
-                    <Switch>
-                        <Route path='/adminSection'>
-                            <section className="col-md-10 col-lg-10">
-                                <AdminFirstRow />
-                                <AdminSecondRow />
-                                <AdminThirdRow />
-                            </section>
-                        </Route>
-                        <Route path='/personal'>
-                            <section className="col-md-10 col-lg-10">
-                                <EnrolleeDepartment pagesLength={pageEnrDepartLength}
-                                    activePage={this.state.activeEnrolleePage}
-                                    handlePageChange={this.handleEnrolleePageChange.bind(this)}
-                                    onClick={onGetConcreteDatas}
-                                />
-                                <ResultUge pagesLength={pageResultLength} activePage={this.state.activeResultPage}
-                                    handlePageChange={this.handleResultPageChange.bind(this)}
-                                />
-                                <Statement pagesLength={pageStatementLength} activePage={this.state.activStatementPage}
-                                    handlePageChange={this.handleStatementPageChange.bind(this)}
-                                />
-                            </section>
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>
+            <section className="col-md-10 col-lg-10">
+                <EnrolleeDepartment pagesLength={pageEnrDepartLength}
+                    activePage={this.state.activeEnrolleePage}
+                    handlePageChange={this.handleEnrolleePageChange.bind(this)}
+                    onClick={onGetConcreteDatas}
+                />
+                <ResultUge pagesLength={pageResultLength} activePage={this.state.activeResultPage}
+                    handlePageChange={this.handleResultPageChange.bind(this)}
+                />
+                <Statement pagesLength={pageStatementLength} activePage={this.state.activStatementPage}
+                    handlePageChange={this.handleStatementPageChange.bind(this)}
+                />
+            </section>
         );
     }
 }
-
 
 let progEnrData = [];
 let resultUgeData = [];
@@ -141,4 +110,4 @@ const mapDispatchToProps = function (dispatch) {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersanolMain);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalSection);

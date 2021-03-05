@@ -8,7 +8,7 @@ using WebAppUniversity.ViewModels;
 
 namespace WebAppUniversity.Data
 {
-    public class UniversityRepository : IUniversityRepository
+    internal sealed class UniversityRepository : IUniversityRepository
     {
         private readonly UniversityDbContext _context;
 
@@ -16,13 +16,29 @@ namespace WebAppUniversity.Data
         {
             _context = context;
         }
+        
+        public async Task<IEnumerable<IBaseViewModel>> GetBaseEnrolleeAndDepartmentAsync()
+        {
+            return await GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
+        }
 
-        public async Task<IEnumerable<EnrolleeAndDepartment>> GetFullEnrolleeDepartmentAsync()
+        public async Task<IEnumerable<IBaseViewModel>> GetBaseUgeAsync()
+        {
+            return await GetUgeResultsAsync().ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<IBaseViewModel>> GetBaseStatementsAsync()
+        {
+            return await GetStatementsAsync().ConfigureAwait(false);
+        }
+
+        private async Task<IEnumerable<EnrolleeAndDepartment>> GetFullEnrolleeDepartmentAsync()
         {
             try
             {
-                if (_context.Enrollees.Count() == 0)
-                    return null;
+                if (_context.Enrollees == null && _context.Enrollees.Count() == 0)
+                    return new List<EnrolleeAndDepartment>();
+
                 return await (from enrol in _context.Enrollees
                               join programEnr in _context.ProgramEnrollees on enrol.Enrollee_Id equals programEnr.Enrollee_Id
                               into ProgramEnrolleesTemp
@@ -49,8 +65,8 @@ namespace WebAppUniversity.Data
         {
             try
             {
-                if (_context.Enrollees.Count() == 0)
-                    return null;
+                if (_context.Enrollees == null && _context.Enrollees.Count() == 0)
+                    return new List<EnrolleeAndDepartment>(); 
 
                 var list = await GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
 
@@ -67,10 +83,13 @@ namespace WebAppUniversity.Data
             catch (Exception) { return new List<EnrolleeAndDepartment>(); }
         }
 
-        public async Task<IEnumerable<UgeResults>> GetUgeResultsAsync()
+        private async Task<IEnumerable<UgeResults>> GetUgeResultsAsync()
         {
             try
             {
+                if(_context.Subjects == null && _context.Subjects.Count() == 0)
+                    return new List<UgeResults>();
+
                 return await (from sub in _context.Subjects
                               join enr in _context.EnrolleeSubjects on sub.Subject_Id equals enr.Subject_Id
                               into EnrTemp
@@ -91,10 +110,13 @@ namespace WebAppUniversity.Data
         }
 
 
-        public async Task<IEnumerable<Statement>> GetStatementsAsync()
+        private async Task<IEnumerable<Statement>> GetStatementsAsync()
         {
             try
             {
+                if(_context.ProgramEnrollees == null && _context.ProgramEnrollees.Count() == 0)
+                    return new List<Statement>();
+
                 return await (from progEnr in _context.ProgramEnrollees
                               join program in _context.Programs on progEnr.Program_Id equals program.Program_Id
                               join department in _context.Departments on program.Department_Id equals department.Department_Id

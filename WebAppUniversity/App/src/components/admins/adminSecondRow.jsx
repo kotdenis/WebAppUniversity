@@ -4,6 +4,7 @@ import { AdminAchievement } from './adminAchievement.jsx';
 import { AdminEnrollee } from './adminEnrollee.jsx';
 import { buildAchievementTable, buildAdminEnrolleeTable } from '../../helpers/adminHelper';
 import { getSecondAdminData } from '../../actions/adminActions/actions';
+import { editAchievementData, editEnrolleeData } from '../../actions/adminActions/editActions';
 
 class AdminSecondRow extends React.Component {
     constructor(props) {
@@ -44,18 +45,18 @@ class AdminSecondRow extends React.Component {
     }
 
     render() {
-        const { achievementPageLength, adminEnrolleePageLength } = this.props;
+        const { achievementPageLength, adminEnrolleePageLength, onEditAchievementData, onEditEnrolleeData } = this.props;
         return (
             <div className="row d-flex">
                 <AdminAchievement activePage={this.state.activeAchievementPage} pagesLength={achievementPageLength}
                     handlePageChange={this.handleAchievementPageChange.bind(this)}
                     handleButtonCancel={this.makeAchievementModalCancel.bind(this)}
-                    handleButtonEdit={() => { }}
+                    handleButtonEdit={onEditAchievementData}
                 />
                 <AdminEnrollee activePage={this.state.activeAdminEnrolPage} pagesLength={adminEnrolleePageLength}
                     handlePageChange={this.handleAdminEnrolPageChange.bind(this)}
                     handleButtonCancel={this.makeEnrolleeModalCancel.bind(this)}
-                    handleButtonEdit={() => { }}
+                    handleButtonEdit={onEditEnrolleeData}
                 />
             </div>
         );
@@ -78,7 +79,15 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        onGetDatas: () => dispatch(getSecondAdminData())
+        onGetDatas: () => dispatch(getSecondAdminData()),
+        onEditAchievementData: () => dispatch(editAchievementData({
+            achievement_Id: $('#achievementModalId').val(),
+            name: $('#achievementModalInput').val()
+        }, achievementData)),
+        onEditEnrolleeData: () => dispatch(editEnrolleeData({
+            enrollee_Id: $('#enrolleeModalId').val(),
+            name: $('#enrolleeModalInput').val()
+        }, enrolleeData))
     };
 };
 
