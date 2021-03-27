@@ -37242,7 +37242,7 @@ class GeneralMain extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
                                     { to: '/' },
-                                    'BlockRight'
+                                    '\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439'
                                 )
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -37251,7 +37251,7 @@ class GeneralMain extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
                                     { to: '/blocktest' },
-                                    'BlockTest'
+                                    '\u0412\u0441\u043F\u043E\u043C\u043E\u0433\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439'
                                 )
                             )
                         )
@@ -37308,21 +37308,16 @@ class GeneralDepartments extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.C
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: __webpack_require__(121) }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             "div",
-                            { className: "card-img-overlay" },
+                            { className: "card-img-overlay mt-2" },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "h4",
-                                { className: "card-title", style: { color: "white" } },
-                                "John Doe"
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "p",
-                                { className: "card-text", style: { color: "white" } },
-                                "Some example text."
+                                "h3",
+                                { className: "card-title", style: { color: "white", paddingTop: '40%' } },
+                                "\u0418\u043D\u0436\u0435\u043D\u0435\u0440\u043D\u0430\u044F \u0448\u043A\u043E\u043B\u0430"
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 "a",
                                 { href: "#", className: "btn btn-primary" },
-                                "See Profile"
+                                "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F"
                             )
                         )
                     )
@@ -37338,19 +37333,14 @@ class GeneralDepartments extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.C
                             "div",
                             { className: "card-img-overlay" },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "h4",
-                                { className: "card-title", style: { color: "white" } },
-                                "John Doe"
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "p",
-                                { className: "card-text", style: { color: "white" } },
-                                "Some example text."
+                                "h3",
+                                { className: "card-title", style: { color: "white", paddingTop: '40%' } },
+                                "\u0415\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0435 \u043D\u0430\u0443\u0438"
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 "a",
                                 { href: "#", className: "btn btn-primary" },
-                                "See Profile"
+                                "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F"
                             )
                         )
                     )

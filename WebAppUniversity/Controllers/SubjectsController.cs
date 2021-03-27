@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WebAppUniversity.DbRepository;
 using WebAppUniversity.Models;
@@ -27,7 +24,7 @@ namespace WebAppUniversity.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<BaseModel>> GetSubjects()
+        public async Task<IEnumerable<BaseModel>> GetSubjects() 
         {
             return await _adminRepository.GetItemsAsync<Subject>();
         }

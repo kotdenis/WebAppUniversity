@@ -13,11 +13,10 @@ export default class GeneralDepartments extends React.Component {
                     <div className="col-md-6 col-lg-6">
                         <div className="card">
                             <img src={require("../../images/artificial-intelligence.jpg")} />
-                            <div className="card-img-overlay">
-                                <h4 className="card-title" style={{ color: "white" }}>
-                                    John Doe</h4>
-                                <p className="card-text" style={{ color: "white" }}>Some example text.</p>
-                                <a href="#" className="btn btn-primary">See Profile</a>
+                            <div className="card-img-overlay mt-2">
+                                <h3 className="card-title" style={{ color: "white", paddingTop: '40%' }}>
+                                    Инженерная школа</h3>
+                                <a href="#" className="btn btn-primary">Регистрация</a>
                             </div>
                         </div>
                     </div>
@@ -25,10 +24,9 @@ export default class GeneralDepartments extends React.Component {
                         <div className="card">
                             <img src={require("../../images/trilobite.jpg")} />
                             <div className="card-img-overlay">
-                                <h4 className="card-title" style={{ color: "white" }}>
-                                    John Doe</h4>
-                                <p className="card-text" style={{ color: "white" }}>Some example text.</p>
-                                <a href="#" className="btn btn-primary">See Profile</a>
+                                <h3 className="card-title" style={{ color: "white", paddingTop: '40%' }}>
+                                    Естественные науи</h3>
+                                <a href="#" className="btn btn-primary">Регистрация</a>
                             </div>
                         </div>
                     </div>

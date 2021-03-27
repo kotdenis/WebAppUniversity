@@ -15,7 +15,7 @@ using WebAppUniversity.Identity.IdentityModels;
 
 namespace WebAppUniversity.Controllers
 {
-    //[Route("api/[controller]")]
+    
     [ApiController]
     public class AccountApiController : ControllerBase
     {
@@ -32,9 +32,7 @@ namespace WebAppUniversity.Controllers
             _roleManager = roleMgr;
             _configuration = configuration;
         }
-
-        
-        //[ValidateAntiForgeryToken]
+       
         [Route("api/accountApi/login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody]LoginModel loginModel)
@@ -75,7 +73,6 @@ namespace WebAppUniversity.Controllers
 
         [Route("api/accountApi/register")]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody]RegisterModel registerModel)
         {
             if (!ModelState.IsValid)
@@ -94,9 +91,9 @@ namespace WebAppUniversity.Controllers
                 var result = await _userManager.CreateAsync(user, registerModel.Password);
                 if (!result.Succeeded)
                 {
-                    string error = "";
+                    StringBuilder error = new StringBuilder();
                     foreach (var err in result.Errors)
-                        error += err.Description + "\r\n";
+                        error.AppendLine(err.Description);
                     return StatusCode(StatusCodes.Status501NotImplemented, new { status = "Error", message = error });
                 }
                 await _signInManager.SignInAsync(user, false);

@@ -21,10 +21,10 @@ export default class GeneralMain extends React.Component {
                         <nav>
                             <ul style={{ fontWeight: "bold" }}>
                                 <li>
-                                    <Link to='/'>BlockRight</Link>
+                                    <Link to='/'>Основной</Link>
                                 </li>
                                 <li>
-                                    <Link to='/blocktest'>BlockTest</Link>
+                                    <Link to='/blocktest'>Вспомогательный</Link>
                                 </li>
                             </ul>
                         </nav>
