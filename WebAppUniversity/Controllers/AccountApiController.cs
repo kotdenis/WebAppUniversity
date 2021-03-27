@@ -39,6 +39,7 @@ namespace WebAppUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody]LoginModel loginModel)
         {
+
             IdentityUser user = await _userManager.FindByNameAsync(loginModel.Name);
             await _signInManager.SignOutAsync();
             if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
@@ -74,9 +75,11 @@ namespace WebAppUniversity.Controllers
 
         [Route("api/accountApi/register")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody]RegisterModel registerModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(new { status = "Invalid", message = "Invalid" });
             if (registerModel != null)
             {
                 var userEmail = await _userManager.FindByEmailAsync(registerModel.Email);
@@ -84,11 +87,9 @@ namespace WebAppUniversity.Controllers
                     return StatusCode(StatusCodes.Status501NotImplemented, new { status = "Error", message = "Already exists" });
                 var user = new IdentityUser()
                 {
-
                     UserName = registerModel.Name,
                     Email = registerModel.Email,
                     SecurityStamp = Guid.NewGuid().ToString()
-
                 };
                 var result = await _userManager.CreateAsync(user, registerModel.Password);
                 if (!result.Succeeded)
@@ -96,8 +97,7 @@ namespace WebAppUniversity.Controllers
                     string error = "";
                     foreach (var err in result.Errors)
                         error += err.Description + "\r\n";
-                    return StatusCode(StatusCodes.Status501NotImplemented,
-                    new { status = "Error", message = error });
+                    return StatusCode(StatusCodes.Status501NotImplemented, new { status = "Error", message = error });
                 }
                 await _signInManager.SignInAsync(user, false);
                 return Ok(new { status = "Success", message = "User created" });

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAppUniversity.Identity.IdentityModels
 {
-    public class LoginModel
+    public sealed class LoginModel
     {
         [Required]
         public string Name { get; set; }

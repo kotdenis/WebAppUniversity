@@ -35,9 +35,9 @@ class Register extends React.Component {
                         </form>
                     </form>
                     <div>
-                        <Link to={'/'} className="btn btn-primary" style={{ float: "left" }}
+                        <button className="btn btn-primary" style={{ float: "left" }}
                             onClick={onRegister}
-                        >Регитсрация</Link>
+                        >Регитсрация</button>
                         <Link to={'/'} className="btn btn-secondary ml-2">Отмена</Link>
                     </div>
                 </div>

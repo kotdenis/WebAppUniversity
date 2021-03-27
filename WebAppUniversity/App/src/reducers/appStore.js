@@ -1,11 +1,24 @@
 ﻿import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { personalReducer } from './personalReducers';
-import { rowOne, rowTwo, rowThree } from './adminReducer';
-import { editReducer } from './adminEditReducer';
+import {
+    departmentReducer,
+    subjectReducer,
+    achievementReducer,
+    enrolleeReducer,
+    programsReducer
+} from './adminReducer';
 import { authReducer } from './authReducer';
 
-const reducer = combineReducers({ personalReducer, rowOne, rowTwo, rowThree, editReducer, authReducer });
+const reducer = combineReducers({
+    personalReducer,
+    departmentReducer,
+    subjectReducer,
+    achievementReducer,
+    enrolleeReducer,
+    programsReducer,
+    authReducer
+});
 const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;

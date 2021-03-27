@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAppUniversity.Identity.IdentityModels
 {
-    public class RegisterModel
+    public sealed class RegisterModel
     {
         [Required]
         public string Name { get; set; }

@@ -16,23 +16,14 @@ namespace WebAppUniversity.Data
         {
             _context = context;
         }
+
+        public async Task<IEnumerable<IBaseViewModel>[]> GetViewModelsAsync()
+        {
+            return await Task.WhenAll(GetFullEnrolleeDepartmentAsync(), GetUgeResultsAsync(), 
+                GetStatementsAsync()).ConfigureAwait(false);
+        }
         
-        public async Task<IEnumerable<IBaseViewModel>> GetBaseEnrolleeAndDepartmentAsync()
-        {
-            return await GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
-        }
-
-        public async Task<IEnumerable<IBaseViewModel>> GetBaseUgeAsync()
-        {
-            return await GetUgeResultsAsync().ConfigureAwait(false);
-        }
-
-        public async Task<IEnumerable<IBaseViewModel>> GetBaseStatementsAsync()
-        {
-            return await GetStatementsAsync().ConfigureAwait(false);
-        }
-
-        private async Task<IEnumerable<EnrolleeAndDepartment>> GetFullEnrolleeDepartmentAsync()
+        private async Task<IEnumerable<IBaseViewModel>> GetFullEnrolleeDepartmentAsync()
         {
             try
             {
@@ -66,9 +57,9 @@ namespace WebAppUniversity.Data
             try
             {
                 if (_context.Enrollees == null && _context.Enrollees.Count() == 0)
-                    return new List<EnrolleeAndDepartment>(); 
+                    return new List<EnrolleeAndDepartment>();
 
-                var list = await GetFullEnrolleeDepartmentAsync().ConfigureAwait(false);
+                var list = await GetFullEnrolleeDepartmentAsync().ConfigureAwait(false) as IEnumerable<EnrolleeAndDepartment>;
 
                 if (!string.IsNullOrEmpty(programName) && string.IsNullOrEmpty(departmentName))
                     return list.Where(x => x.ProgramName == programName);
@@ -83,7 +74,7 @@ namespace WebAppUniversity.Data
             catch (Exception) { return new List<EnrolleeAndDepartment>(); }
         }
 
-        private async Task<IEnumerable<UgeResults>> GetUgeResultsAsync()
+        private async Task<IEnumerable<IBaseViewModel>> GetUgeResultsAsync()
         {
             try
             {
@@ -110,7 +101,7 @@ namespace WebAppUniversity.Data
         }
 
 
-        private async Task<IEnumerable<Statement>> GetStatementsAsync()
+        private async Task<IEnumerable<IBaseViewModel>> GetStatementsAsync()
         {
             try
             {

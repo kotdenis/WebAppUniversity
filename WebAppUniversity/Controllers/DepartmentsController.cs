@@ -15,87 +15,87 @@ namespace WebAppUniversity.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AchievementsController : ControllerBase
+    public class DepartmentsController : ControllerBase
     {
         private readonly IAdminRepository<BaseModel> _adminRepository;
         private readonly ILogger _logger;
 
-        public AchievementsController(IAdminRepository<BaseModel> adminRepository, ILogger<AchievementsController> logger)
+        public DepartmentsController(IAdminRepository<BaseModel> adminRepository, ILogger<DepartmentsController> logger)
         {
             _adminRepository = adminRepository;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<BaseModel>> GetAchievements()
+        public async Task<IEnumerable<BaseModel>> GetDepartments() 
         {
-            return await _adminRepository.GetItemsAsync<Achievement>();
+            return await _adminRepository.GetItemsAsync<Department>();
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAchievement([FromRoute] int id)
+        public async Task<IActionResult> GetDepartment([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var achievement = await _adminRepository.GetItemAsync<Achievement>(id);
+            var department = await _adminRepository.GetItemAsync<Department>(id);
 
-            if (achievement == null)
+            if (department == null)
             {
-                _logger.Log(LogLevel.Debug, "Not found by getting achievement");
+                _logger.Log(LogLevel.Debug, "Not found by getting Department");
                 return NotFound();
             }
 
-            return Ok(achievement);
+            return Ok(department);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAchievement([FromRoute] int id, [FromBody] Achievement achievement)
+        public async Task<IActionResult> PutDepartment([FromRoute] int id, [FromBody] Department department)
         {
             if (!ModelState.IsValid)
             {
-                _logger.Log(LogLevel.Debug, "In putting achievement model state is invalid");
+                _logger.Log(LogLevel.Debug, "In putting department model state is invalid");
                 return BadRequest(ModelState);
             }
 
-            if (id != achievement.Achievement_Id)
+            if (id != department.Department_Id)
             {
                 return BadRequest();
             }
 
-            if (await _adminRepository.UpdateAsync(achievement))
+            if (await _adminRepository.UpdateAsync(department))
                 return Ok();
             else
             {
-                _logger.Log(LogLevel.Debug, "Mistake while updating achievement");
+                _logger.Log(LogLevel.Debug, "Mistake while updating department");
                 return NotFound();
             }
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> CreateAchievement([FromBody] Achievement achievement)
+        public async Task<IActionResult> CreateDepartment([FromBody] Department department)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _adminRepository.CreateAsync<Achievement>(achievement);
+            await _adminRepository.CreateAsync<Department>(department);
 
-            return CreatedAtAction("GetDepartment", new { id = achievement.Achievement_Id }, achievement);
+            return CreatedAtAction("GetDepartment", new { id = department.Department_Id }, department);
         }
-        
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAchievement([FromRoute] int id)
+        public async Task<IActionResult> DeleteDepartment([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (await _adminRepository.DeleteAsync<Achievement>(id))
+            if (await _adminRepository.DeleteAsync<Department>(id))
             {
                 return Ok();
             }

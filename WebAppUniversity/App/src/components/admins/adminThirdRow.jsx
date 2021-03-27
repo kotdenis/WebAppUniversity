@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { AdminProgram } from './adminProgram.jsx';
 import { buildAdminProgramTable } from '../../helpers/adminHelper';
-import { getThirdAdminData } from '../../actions/adminActions/actions';
+import { getProgramsData } from '../../actions/adminActions/actions';
 import { editProgramData } from '../../actions/adminActions/editActions';
 
 class AdminThirdRow extends React.Component {
@@ -48,16 +48,16 @@ class AdminThirdRow extends React.Component {
 let adminProgramData = [];
 let adminProgramPageLength = 1;
 const mapStateToProps = function (state) {
-    if (typeof state.rowThree[0] !== 'undefined') {
-        adminProgramData = state.rowThree[0];
-        adminProgramPageLength = Math.ceil(state.rowThree[0].length / 7);
+    if (typeof state.programsReducer[0] !== 'undefined') {
+        adminProgramData = state.programsReducer[0];
+        adminProgramPageLength = Math.ceil(state.programsReducer[0].length / 7);
     }
     return { adminProgramData, adminProgramPageLength };
 };
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        onGetDatas: () => dispatch(getThirdAdminData()),
+        onGetDatas: () => dispatch(getProgramsData()),
         onEditProgramData: () => dispatch(editProgramData({
             program_Id: $('#programModalNameId').val(),
             name: $('#programModalNameInput').val(),

@@ -9,7 +9,7 @@ using WebAppUniversity.Models;
 
 namespace WebAppUniversity.DbRepository
 {
-    public class AdminRepository : IAdminRepository<BaseModel>
+    public class AdminRepository : IAdminRepository<BaseModel> 
     {
         UniversityDbContext context;
 
@@ -21,15 +21,25 @@ namespace WebAppUniversity.DbRepository
 
         public async Task CreateAsync<TEntity>(TEntity item) where TEntity : BaseModel 
         {
-            await context.Set<TEntity>().AddAsync(item);
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.Set<TEntity>().AddAsync(item);
+                await context.SaveChangesAsync();
+            }
+            catch(Exception) { }
         }
 
-        public async Task DeleteAsync<TEntity>(int id) where TEntity : BaseModel
+        public async Task<bool> DeleteAsync<TEntity>(int id) where TEntity : BaseModel
         {
             var item = await context.Set<TEntity>().FindAsync(id);
-            context.Set<TEntity>().Remove(item);
-            await context.SaveChangesAsync();
+            if (item != null)
+            {
+                context.Set<TEntity>().Remove(item);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            else
+                return false;
         }
 
         public async Task<TEntity> GetItemAsync<TEntity>(int id) where TEntity : BaseModel
@@ -50,37 +60,19 @@ namespace WebAppUniversity.DbRepository
             catch(Exception) { return new List<TEntity>(); }
         }
 
-        public async Task UpdateAsync<TEntity>(int id, TEntity item) where TEntity : BaseModel
+        public async Task<bool> UpdateAsync<TEntity>(TEntity item) where TEntity : BaseModel
         {
             try
             {
-                if(item is Department dep && dep.Department_Id == id)
+                if (context.Entry(item).IsKeySet)
                 {
-                    context.Entry(dep).State = EntityState.Modified;
+                    context.Entry(item).State = EntityState.Modified;
                     await context.SaveChangesAsync();
+                    return true;
                 }
-                if(item is Subject sub && sub.Subject_Id == id)
-                {
-                    context.Entry(sub).State = EntityState.Modified;
-                    await context.SaveChangesAsync();
-                }
-                if(item is Enrollee enr && enr.Enrollee_Id == id)
-                {
-                    context.Entry(enr).State = EntityState.Modified;
-                    await context.SaveChangesAsync();
-                }
-                if(item is Achievement ach && ach.Achievement_Id == id)
-                {
-                    context.Entry(ach).State = EntityState.Modified;
-                    await context.SaveChangesAsync();
-                }
-                if(item is Programs prog && prog.Program_Id == id)
-                {
-                    context.Entry(prog).State = EntityState.Modified;
-                    await context.SaveChangesAsync();
-                }
+                return false;
             }
-            catch(Exception) {  }
+            catch(DbUpdateConcurrencyException) { return false;  }
         }
     }
 }

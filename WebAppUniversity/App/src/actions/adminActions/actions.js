@@ -1,26 +1,43 @@
 ﻿import {
-    GET_FIRST_ADMINDATA,
-    GET_SECOND_ADMINDATA,
-    GET_THIRD_ADMINDATA
+    GET_SUBJECT_DATA,
+    GET_DEPARTMENT_DATA,
+    GET_ACHIEVEMENT_DATA,
+    GET_ENROLLEE_DATA,
+    GET_PROGRAMS_DATA
 } from '../../constants/constants';
 
-function getFirstData(datas) {
+
+function getPrograms(datas) {
     return {
-        type: GET_FIRST_ADMINDATA,
+        type: GET_PROGRAMS_DATA,
         payload: datas
     };
 }
 
-function getSecondData(datas) {
+function getDepartment(datas) {
     return {
-        type: GET_SECOND_ADMINDATA,
+        type: GET_DEPARTMENT_DATA,
         payload: datas
     };
 }
 
-function getThirdData(datas) {
+function getSubject(datas) {
     return {
-        type: GET_THIRD_ADMINDATA,
+        type: GET_SUBJECT_DATA,
+        payload: datas
+    };
+}
+
+function getAchievement(datas) {
+    return {
+        type: GET_ACHIEVEMENT_DATA,
+        payload: datas
+    };
+}
+
+function getEnrollee(datas) {
+    return {
+        type: GET_ENROLLEE_DATA,
         payload: datas
     };
 }
@@ -30,52 +47,87 @@ const userToken = () => {
     return { 'Authorization': 'Bearer ' + user };
 };
 
-export function getFirstAdminData() {
-    return async function (dispatch) { 
-        return await $.ajax({
-            type: 'GET',
-            url: 'api/adminApi/getBaseModelsAsync',
-            headers: userToken,
-            cache: false,
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Something went wrong while loading first row!");
-            },
-            success: (result) => {
-                dispatch(getFirstData(result));
-            }
-        });
-    };
-}
-
-export function getSecondAdminData() {
+export function getDepartmentData() {
     return async function (dispatch) {
         return await $.ajax({
             type: 'GET',
-            url: 'api/adminApi/getSecondBaseModelsAsync',
+            url: 'api/departments',
             headers: userToken,
             cache: false,
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("Something went wrong while loading second row!");
+                alert("Something went wrong while loading department!");
             },
             success: (result) => {
-                dispatch(getSecondData(result));
+                dispatch(getDepartment(result));
             }
         });
     };
 }
 
-export function getThirdAdminData() {
+export function getSubjectData() {
+    return async function (dispatch) {
+        return await $.ajax({
+            type: 'GET',
+            url: 'api/subjects',
+            headers: userToken,
+            cache: false,
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong while loading Subjects!");
+            },
+            success: (result) => {
+                dispatch(getSubject(result));
+            }
+        });
+    };
+}
+
+export function getAchievementData() {
+    return async function (dispatch) {
+        return await $.ajax({
+            type: 'GET',
+            url: 'api/achievements',
+            headers: userToken,
+            cache: false,
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong while loading Achievements!");
+            },
+            success: (result) => {
+                dispatch(getAchievement(result));
+            }
+        });
+    };
+}
+
+export function getEnrolleeData() {
+    return async function (dispatch) {
+        return await $.ajax({
+            type: 'GET',
+            url: 'api/enrollees',
+            headers: userToken,
+            cache: false,
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong while loading Enrollees!");
+            },
+            success: (result) => {
+                dispatch(getEnrollee(result));
+            }
+        });
+    };
+}
+
+
+export function getProgramsData() {
     return function (dispatch) {
         return $.ajax({
             type: 'GET',
-            url: 'api/adminApi/getThirdBaseModelsAsync',
+            url: 'api/programs',
             headers: userToken,
             cache: false,
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Something went wrong in third!");
             },
             success: (result) => {
-                dispatch(getThirdData(result));
+                dispatch(getPrograms(result));
             }
         });
     };

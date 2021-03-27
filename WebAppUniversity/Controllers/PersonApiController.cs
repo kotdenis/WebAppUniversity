@@ -27,8 +27,7 @@ namespace WebAppUniversity.Controllers
         [HttpGet]
         public async Task<IEnumerable<IBaseViewModel>[]> GetInitialDataAsync()
         {
-            return await Task.WhenAll(_universityRepository.GetBaseEnrolleeAndDepartmentAsync(), 
-                _universityRepository.GetBaseUgeAsync(), _universityRepository.GetBaseStatementsAsync());
+            return await _universityRepository.GetViewModelsAsync();
         }
 
 

@@ -47,7 +47,7 @@ const userToken = () => {
 export function editDepartmentData(item, datas) {
     return async function (dispatch) {
         return await $.ajax({
-            url: 'api/adminApi/editDepartmentModelAsync/' + item.department_Id,
+            url: 'api/departments/' + item.department_Id,
             type: 'PUT',
             headers: userToken,
             accepts: 'application/json',
@@ -71,7 +71,7 @@ export function editDepartmentData(item, datas) {
 export function editSubjectData(item, datas) {
     return async function (dispatch) {
         return await $.ajax({
-            url: 'api/adminApi/editSubjectModelAsync/' + item.subject_Id,
+            url: 'api/subjects/' + item.subject_Id,
             type: 'PUT',
             headers: userToken,
             accepts: 'application/json',
@@ -95,7 +95,7 @@ export function editSubjectData(item, datas) {
 export function editAchievementData(item, datas) {
     return async function (dispatch) {
         return await $.ajax({
-            url: 'api/adminApi/editAchievementModelAsync/' + item.achievement_Id,
+            url: 'api/achievements/' + item.achievement_Id,
             type: 'PUT',
             headers: userToken,
             accepts: 'application/json',
@@ -119,7 +119,7 @@ export function editAchievementData(item, datas) {
 export function editEnrolleeData(item, datas) {
     return async function (dispatch) {
         return await $.ajax({
-            url: 'api/adminApi/editEnrolleeModelAsync/' + item.enrollee_Id,
+            url: 'api/enrollees/' + item.enrollee_Id,
             type: 'PUT',
             headers: userToken,
             accepts: 'application/json',
@@ -144,7 +144,7 @@ export function editEnrolleeData(item, datas) {
 export function editProgramData(item, datas) {
     return async function (dispatch) {
         return await $.ajax({
-            url: 'api/adminApi/editProgramsModelAsync/' + item.program_Id,
+            url: 'api/programs/' + item.program_Id,
             type: 'PUT',
             headers: userToken,
             accepts: 'application/json',

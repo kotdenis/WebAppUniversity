@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AdminAchievement } from './adminAchievement.jsx';
 import { AdminEnrollee } from './adminEnrollee.jsx';
 import { buildAchievementTable, buildAdminEnrolleeTable } from '../../helpers/adminHelper';
-import { getSecondAdminData } from '../../actions/adminActions/actions';
+import { getAchievementData, getEnrolleeData } from '../../actions/adminActions/actions';
 import { editAchievementData, editEnrolleeData } from '../../actions/adminActions/editActions';
 
 class AdminSecondRow extends React.Component {
@@ -16,7 +16,8 @@ class AdminSecondRow extends React.Component {
     }
 
     componentDidMount() {
-        this.props.onGetDatas();
+        this.props.onGetEnrollee();
+        this.props.onGetAchievement();
     }
 
     componentDidUpdate(prevProps) {
@@ -68,18 +69,27 @@ let achievementData = [];
 let adminEnrolleePageLength = 1;
 let achievementPageLength = 1;
 const mapStateToProps = function (state) {
-    if (typeof state.rowTwo[0] !== 'undefined') {
-        enrolleeData = state.rowTwo[0][0];
-        achievementData = state.rowTwo[0][1];
-        adminEnrolleePageLength = Math.ceil(state.rowTwo[0][0].length / 7);
-        achievementPageLength = Math.ceil(state.rowTwo[0][1].length / 7);
+    if (typeof state.enrolleeReducer[0] !== 'undefined') {
+        enrolleeData = state.enrolleeReducer[0];
+        adminEnrolleePageLength = Math.ceil(state.enrolleeReducer[0].length / 7);
+        if (state.enrolleeReducer[0].length > 0) {
+            $('#divTableAdminEnrollee').hide();
+        }
+    }
+    if (typeof state.achievementReducer[0] !== 'undefined') {
+        achievementData = state.achievementReducer[0];
+        achievementPageLength = Math.ceil(state.achievementReducer[0].length / 7);
+        if (state.achievementReducer[0].length > 0) {
+            $('#divTableAdminAchievement').hide();
+        }
     }
     return { enrolleeData, achievementData, adminEnrolleePageLength, achievementPageLength };
 };
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        onGetDatas: () => dispatch(getSecondAdminData()),
+        onGetEnrollee: () => dispatch(getEnrolleeData()),
+        onGetAchievement: () => dispatch(getAchievementData()),
         onEditAchievementData: () => dispatch(editAchievementData({
             achievement_Id: $('#achievementModalId').val(),
             name: $('#achievementModalInput').val()

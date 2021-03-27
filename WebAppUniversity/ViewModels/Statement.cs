@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebAppUniversity.ViewModels
 {
-    public class Statement : IBaseViewModel
+    public sealed class Statement : IBaseViewModel
     {
         public string DepartmentName { get; set; }
         public string ProgramName { get; set; }

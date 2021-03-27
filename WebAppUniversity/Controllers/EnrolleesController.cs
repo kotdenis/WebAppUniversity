@@ -15,87 +15,88 @@ namespace WebAppUniversity.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AchievementsController : ControllerBase
+    public class EnrolleesController : ControllerBase
     {
         private readonly IAdminRepository<BaseModel> _adminRepository;
         private readonly ILogger _logger;
 
-        public AchievementsController(IAdminRepository<BaseModel> adminRepository, ILogger<AchievementsController> logger)
+        public EnrolleesController(IAdminRepository<BaseModel> adminRepository, ILogger<EnrolleesController> logger)
         {
             _adminRepository = adminRepository;
             _logger = logger;
         }
-
+        
         [HttpGet]
-        public async Task<IEnumerable<BaseModel>> GetAchievements()
+        public async Task<IEnumerable<Enrollee>> GetEnrollees()
         {
-            return await _adminRepository.GetItemsAsync<Achievement>();
+            return await _adminRepository.GetItemsAsync<Enrollee>();
         }
 
+       
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAchievement([FromRoute] int id)
+        public async Task<IActionResult> GetEnrollee([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var achievement = await _adminRepository.GetItemAsync<Achievement>(id);
+            var enrollee = await _adminRepository.GetItemAsync<Enrollee>(id);
 
-            if (achievement == null)
+            if (enrollee == null)
             {
-                _logger.Log(LogLevel.Debug, "Not found by getting achievement");
+                _logger.Log(LogLevel.Debug, "Not found by getting enrollee");
                 return NotFound();
             }
 
-            return Ok(achievement);
+            return Ok(enrollee);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAchievement([FromRoute] int id, [FromBody] Achievement achievement)
+        public async Task<IActionResult> PutEnrollee([FromRoute] int id, [FromBody] Enrollee enrollee)
         {
             if (!ModelState.IsValid)
             {
-                _logger.Log(LogLevel.Debug, "In putting achievement model state is invalid");
+                _logger.Log(LogLevel.Debug, "In putting enrollee model state is invalid");
                 return BadRequest(ModelState);
             }
 
-            if (id != achievement.Achievement_Id)
+            if (id != enrollee.Enrollee_Id)
             {
                 return BadRequest();
             }
 
-            if (await _adminRepository.UpdateAsync(achievement))
+            if (await _adminRepository.UpdateAsync(enrollee))
                 return Ok();
             else
             {
-                _logger.Log(LogLevel.Debug, "Mistake while updating achievement");
+                _logger.Log(LogLevel.Debug, "Mistake while updating enrollee");
                 return NotFound();
             }
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> CreateAchievement([FromBody] Achievement achievement)
+        public async Task<IActionResult> CreateEnrollee([FromBody] Enrollee enrollee)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _adminRepository.CreateAsync<Achievement>(achievement);
+            await _adminRepository.CreateAsync<Enrollee>(enrollee);
 
-            return CreatedAtAction("GetDepartment", new { id = achievement.Achievement_Id }, achievement);
+            return CreatedAtAction("GetDepartment", new { id = enrollee.Enrollee_Id }, enrollee);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAchievement([FromRoute] int id)
+        public async Task<IActionResult> DeleteEnrollee([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (await _adminRepository.DeleteAsync<Achievement>(id))
+            if (await _adminRepository.DeleteAsync<Enrollee>(id))
             {
                 return Ok();
             }

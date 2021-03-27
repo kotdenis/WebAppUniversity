@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { AdminSubject } from './adminSubject.jsx';
 import { AdminDepartment } from './adminDepartment.jsx';
 import { buildAdminDepartmentTable, buildAdminSubjectTable } from '../../helpers/adminHelper';
-import { getFirstAdminData } from '../../actions/adminActions/actions';
 import { editDepartmentData, editSubjectData } from '../../actions/adminActions/editActions';
+import { getDepartmentData, getSubjectData } from '../../actions/adminActions/actions';
 
 class AdminFirstRow extends React.Component {
     constructor(props) {
@@ -16,7 +16,8 @@ class AdminFirstRow extends React.Component {
     }
 
     componentDidMount() {
-        this.props.onGetDatas();
+        this.props.onGetDepartmentDatas();
+        this.props.onGetSubjectDatas();
     }
 
     componentDidUpdate(prevProps) {
@@ -68,11 +69,19 @@ let subjectData = [];
 let departmentPageLength = 1;
 let subjectPageLength = 1;
 const mapStateToProps = function (state) {
-    if (typeof state.rowOne[0] !== 'undefined') {
-        departmentData = state.rowOne[0][0];
-        subjectData = state.rowOne[0][1];
-        departmentPageLength = Math.ceil(state.rowOne[0][0].length / 7);
-        subjectPageLength = Math.ceil(state.rowOne[0][1].length / 7);
+    if (typeof state.departmentReducer[0] !== 'undefined') {
+        departmentData = state.departmentReducer[0];
+        departmentPageLength = Math.ceil(state.departmentReducer[0].length / 7);
+        if (state.departmentReducer[0].length > 0) {
+            $('#divTableAdminDepartment').hide();
+        }
+    }
+    if (typeof state.subjectReducer[0] !== 'undefined') {
+        subjectData = state.subjectReducer[0];
+        subjectPageLength = Math.ceil(state.subjectReducer[0].length / 7);
+        if (state.subjectReducer[0].length > 0) {
+            $('#divTableAdminSubject').hide();
+        }
     }
     return { departmentData, subjectData, departmentPageLength, subjectPageLength };
 };
@@ -80,7 +89,8 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        onGetDatas: () => dispatch(getFirstAdminData()),
+        onGetDepartmentDatas: () => dispatch(getDepartmentData()),
+        onGetSubjectDatas: () => dispatch(getSubjectData()),
         onEditDepartmentData: () => dispatch(editDepartmentData({
             department_Id: $('#departmentModalId').val(),
             name: $('#departmentModalInput').val(),
@@ -92,5 +102,6 @@ const mapDispatchToProps = function (dispatch) {
         }, subjectData))
     };
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminFirstRow);

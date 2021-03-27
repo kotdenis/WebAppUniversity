@@ -15,87 +15,87 @@ namespace WebAppUniversity.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AchievementsController : ControllerBase
+    public class SubjectsController : ControllerBase
     {
         private readonly IAdminRepository<BaseModel> _adminRepository;
         private readonly ILogger _logger;
 
-        public AchievementsController(IAdminRepository<BaseModel> adminRepository, ILogger<AchievementsController> logger)
+        public SubjectsController(IAdminRepository<BaseModel> adminRepository, ILogger<SubjectsController> logger)
         {
             _adminRepository = adminRepository;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<BaseModel>> GetAchievements()
+        public async Task<IEnumerable<BaseModel>> GetSubjects()
         {
-            return await _adminRepository.GetItemsAsync<Achievement>();
+            return await _adminRepository.GetItemsAsync<Subject>();
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAchievement([FromRoute] int id)
+        public async Task<IActionResult> GetSubject([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var achievement = await _adminRepository.GetItemAsync<Achievement>(id);
+            var subject = await _adminRepository.GetItemAsync<Subject>(id);
 
-            if (achievement == null)
+            if (subject == null)
             {
-                _logger.Log(LogLevel.Debug, "Not found by getting achievement");
+                _logger.Log(LogLevel.Debug, "Not found by getting Subject");
                 return NotFound();
             }
 
-            return Ok(achievement);
+            return Ok(subject);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAchievement([FromRoute] int id, [FromBody] Achievement achievement)
+        public async Task<IActionResult> PutSubject([FromRoute] int id, [FromBody] Subject subject)
         {
             if (!ModelState.IsValid)
             {
-                _logger.Log(LogLevel.Debug, "In putting achievement model state is invalid");
+                _logger.Log(LogLevel.Debug, "In putting subject model state is invalid");
                 return BadRequest(ModelState);
             }
 
-            if (id != achievement.Achievement_Id)
+            if (id != subject.Subject_Id)
             {
                 return BadRequest();
             }
 
-            if (await _adminRepository.UpdateAsync(achievement))
+            if (await _adminRepository.UpdateAsync(subject))
                 return Ok();
             else
             {
-                _logger.Log(LogLevel.Debug, "Mistake while updating achievement");
+                _logger.Log(LogLevel.Debug, "Mistake while updating subject");
                 return NotFound();
             }
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> CreateAchievement([FromBody] Achievement achievement)
+        public async Task<IActionResult> CreateSubject([FromBody] Subject subject)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _adminRepository.CreateAsync<Achievement>(achievement);
+            await _adminRepository.CreateAsync<Subject>(subject);
 
-            return CreatedAtAction("GetDepartment", new { id = achievement.Achievement_Id }, achievement);
+            return CreatedAtAction("GetSubject", new { id = subject.Subject_Id }, subject);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAchievement([FromRoute] int id)
+        public async Task<IActionResult> DeleteSubject([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (await _adminRepository.DeleteAsync<Achievement>(id))
+            if (await _adminRepository.DeleteAsync<Subject>(id))
             {
                 return Ok();
             }

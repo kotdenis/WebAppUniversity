@@ -29,12 +29,12 @@ export function registerUser(user) {
             accepts: 'application/json',
             contentType: 'application/json',
             data: JSON.stringify(user),
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Something went wrong while register!");
+            error: function (jqXHR, textStatus) {
+                alert(jqXHR.status + ' jqXHR' + ' ' + textStatus.status);
             },
             success: function(result) {
                 alert(result.message);
-                dispatch(register(null));
+                dispatch(register({ name: 'empty', message: 'empty' }));
             }
         });
     };
